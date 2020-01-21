@@ -1,0 +1,189 @@
+@model cFunding.Models.project
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2 class="pageTitle">Edit Project</h2>
+<section class="form-section">
+    <div class="container">
+        <div class="row">
+            <div>
+                <form asp-action="Edit" asp-controller="project" enctype = "multipart/form-data" id="editProjectForm"> 
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                    <input type="hidden" asp-for="id" />
+                    <input type="hidden" class="form-control" asp-for="fkuser" name="fkuser" value="@ViewBag.userid" />
+                    <!-- project name -->
+                    <div class="form-group">
+                        <label asp-for="projectname" class="control-label">Project Name</label>
+                        <input asp-for="projectname" class="form-control" name="projectname"/>
+                        <span asp-validation-for="projectname" class="text-danger"></span>
+                    </div>
+
+                    <!-- project description -->
+                    <div class="form-group">
+                        <label asp-for="projectdescription" class="control-label">Project Description</label>
+                        <partial name="_tinyMCEEdit" />    
+                        <span asp-validation-for="projectdescription" class="text-danger"></span>
+                    </div>
+                    
+                    <script>
+                        $(function(){
+                            var listcategory = @(Html.Raw(ViewBag.listCategory));
+                            $.each(listcategory, function(key, value) {
+                                //var option = "<option value='"+value.id+"'>" + value.categoryname + "</option>";
+                                $('#projectCategoryCreate').append($("<option value='"+value.id+"'>" + value.categoryname + "</option>"));                
+                            });
+                            var initialCategory = @ViewBag.categoryId;
+                            $('#projectCategoryCreate option[value="'+initialCategory+'"]').prop('selected', true);
+                            $('#fkcategory').val(initialCategory);
+                            //$('#projectCategoryCreate').val(@Html.DisplayFor(model => model.fkcategory.id));
+                        });
+                        
+                    </script> 
+                
+                    <!-- category -->
+                    <div class="form-group">
+                        <input type="hidden" id="fkcategory" name="fkcategory"/>
+                        <label class="control-label">Category</label>
+                        <select id="projectCategoryCreate" class="form-control select-picker" onchange="getCategoryIdProjectEdit()">
+                            <option>Select a category</option>
+                        </select>
+                        <span class="text-danger"></span>
+                    </div>
+                    
+                    <!-- amount to raise -->
+                    <div class="form-group">
+                        <label asp-for="projectamounttoraise" class="control-label">Amount To Raise</label>
+                        <input type="number" asp-for="projectamounttoraise" class="form-control" name="projectamounttoraise"/>
+                        <span asp-validation-for="projectamounttoraise" class="text-danger"></span>
+                    </div>
+                    <input type="hidden" name="projectamountraised"  value="@ViewBag.projectamountraised"/>
+                    <!-- creation date -->
+                    <div class="form-group" style="display: none;">
+                        <label asp-for="projectcreationdate" class="control-label">Creation Date</label>
+                        <input type="date" asp-for="projectcreationdate" class="form-control" name="projectcreationdate" />
+                        <span asp-validation-for="projectcreationdate" class="text-danger"></span>
+                    </div> 
+
+                    <!-- closing date -->
+                    <div class="form-group">
+                        <label asp-for="projectclosingdate" class="control-label">Closing Date</label>
+                        <input type="date" asp-for="projectclosingdate" class="form-control date-picker" name="projectclosingdate" />
+                        <span asp-validation-for="projectclosingdate" class="text-danger"></span>
+                    </div>
+
+                    
+                    <!-- RETURNS -->
+                    <label class="control-label">Shares</label>
+
+                    <div class="row project-edit-card-wrapper">
+                        <!-- ordinary shares card-edit -->
+                        <div class="col-sm-3 card-edit">
+                            <label asp-for="nbshareordinary" class="control-label">Number of ordinary shares</label>
+                            <input type="number" asp-for="nbshareordinary" class="form-control"
+                                name="nbshareordinary" />
+                            <span asp-validation-for="nbshareordinary" class="text-danger"></span>
+                        </div>
+
+                        <!-- preferencial shares card-edit -->
+                        <div class="col-sm-3 card-edit">
+                            <label asp-for="nbsharepreferencial" class="control-label">Number of preferencial shares</label>
+                            <input type="number" asp-for="nbsharepreferencial" class="form-control"
+                                name="nbsharepreferencial" />
+                            <span asp-validation-for="nbsharepreferencial" class="text-danger"></span>
+                        </div>
+                        
+                        <!-- non-voting shares card-edit -->
+                        <div class="col-sm-3 card-edit">
+                            <label asp-for="nbsharenonvoting" class="control-label">Number of non-voting shares</label>
+                            <input type="number" asp-for="nbsharenonvoting" class="form-control"
+                                name="nbsharenonvoting" />
+                            <span asp-validation-for="nbsharenonvoting" class="text-danger"></span>
+                        </div>
+
+                        <!-- redeemable shares card-edit -->
+                        <div class="col-sm-3 card-edit tcenter">
+                            <label asp-for="nbshareredeemable" class="control-label">Number of redeemable shares</label>
+                            <input type="number" asp-for="nbshareredeemable" class="form-control"
+                                name="nbshareredeemable" />
+                            <span asp-validation-for="nbshareredeemable" class="text-danger"></span>
+                        </div>
+                    </div>
+                    
+                    
+                    <!-- images -->
+                    <label class="control-label">Gallery</label>
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <!-- image1 -->
+                            <input type="hidden" asp-for="projectimage1" />
+                            <div class="fU">
+                                <input type="file" class="inputfile" id="fileOne" name="fileOne" onchange="readUrlOne(this)" />
+
+                                <label for="fileOne">
+                                    <img id="imgOne" src="~/@Model.projectimage1" class="img-responsive mAuto"/>
+                                    <div class="edit"><i class="fa fa-pencil fa-lg"></i></div>
+                                </label>
+                                
+                            </div>
+                            <span asp-validation-for="projectimage1" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <!-- image2 -->
+                            <input type="hidden" asp-for="projectimage2" />
+                            <div class="fU">
+                                <input type="file"  class="inputfile" id="fileTwo"  name="fileTwo" onchange="readUrlTwo(this)"/>
+                                
+                                <label for="fileTwo">
+                                    <img id="imgTwo" src="~/@Model.projectimage2" class="img-responsive mAuto"/>
+                                </label>
+                                <div class="edit"><i class="fa fa-pencil fa-lg"></i></div>
+                            </div>
+                            <span asp-validation-for="projectimage2" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <!-- image3 -->
+                            <input type="hidden" asp-for="projectimage3"/>
+                            <div class="fU">
+                                <input type="file" class="inputfile" id="fileThree" name="fileThree" onchange="readUrlThree(this)"/>
+                                
+                                <label for="fileThree">
+                                    <img id="imgThree" src="~/@Model.projectimage3" class="img-responsive mAuto"/>
+                                </label>
+                                <div class="edit"><i class="fa fa-pencil fa-lg"></i></div>
+                            </div>
+                            <span asp-validation-for="projectimage3" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <!-- image4 -->
+                            <input type="hidden" asp-for="projectimage4"/>
+                            <div class="fU">
+                                <input type="file" class="inputfile" id="fileFour" name="fileFour" onchange="readUrlFour(this)"/>
+                                
+                                <label for="fileFour">
+                                    <img id="imgFour" src="~/@Model.projectimage4" class="img-responsive mAuto"/>
+                                </label>
+                                <div class="edit"><i class="fa fa-pencil fa-lg"></i></div>
+                            </div>
+                            <span asp-validation-for="projectimage4" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- submit button -->
+                    <div class="btn-form-wrapper">
+                        <input type="submit" value="Edit Project" class="btn" id="btnEditProject" />
+                    </div>
+                    
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

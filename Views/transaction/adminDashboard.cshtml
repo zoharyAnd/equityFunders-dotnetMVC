@@ -1,0 +1,54 @@
+@model IEnumerable<cFunding.Models.transaction>
+@using cfunding.Services;
+
+@{
+    Layout="~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    ViewData["Title"] = " Manage Transactions";
+}
+<!--------------- Manage Transactions  ------------->
+
+<h2>Manage Transactions</h2>    
+
+<div class="row">
+    <div class="col-md-12">
+        <h4>User data</h4>
+                    
+        <table>
+            <thead>
+                <tr>
+                    <th>Project name</th>
+                    <th>User</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Paypal Account Email</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.fkproject.projectname)</td>
+                    <td>
+                        <div class="td-img-wrapper">
+                            <img src="../@Html.DisplayFor(modelItem => item.fkuser.userphoto)" alt="user photo" class="rounded-img"/>
+                        </div>
+                        <p>@Html.DisplayFor(modelItem => item.fkuser.username)</p>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.amount)
+                    </td>
+                    <td>
+                        @globalMethods.formattedDate(item.transactiondate) 
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.accountemail)
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>        
+    </div>
+
+
+</div>

@@ -1,0 +1,247 @@
+@model cFunding.Models.project
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2 class="pageTitle">Create New Project</h2>
+<section class="form-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Create" asp-controller="project" enctype = "multipart/form-data" id="createProjectForm"> 
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" class="form-control" name="fkuser" value="@ViewBag.userid" />
+
+                    <!-- project name -->
+                    <div class="form-group">
+                        <label asp-for="projectname" class="control-label">Project Name</label>
+                        <input asp-for="projectname" class="form-control" 
+                                id="projectname" name="projectname"/>
+                        <span asp-validation-for="projectname" class="text-danger"></span>
+                    </div>
+
+                    <!-- project description -->
+                    <div class="form-group">
+                        <label asp-for="projectdescription" class="control-label">Project Description</label>
+                        <partial name="_tinyMCECreate" />    
+                        <span asp-validation-for="projectdescription" class="text-danger"></span>
+                    </div>
+
+                    
+                    <script>
+                        $(function(){
+                            var listcategory = @(Html.Raw(ViewBag.listCategory));
+                            $.each(listcategory, function(key, value) {
+                                //var option = "<option value='"+value.id+"'>" + value.categoryname + "</option>";
+                                $('#projectCategoryCreate').append($("<option value='"+value.id+"'>" + value.categoryname + "</option>"));                
+                            });
+                        });
+                        
+                    </script> 
+                    
+                    <!-- category -->
+                    <div class="form-group">
+                        <label class="control-label">Category</label>
+                        <select id="projectCategoryCreate" class="form-control select-picker" name="fkcategory">
+                            <option>Select a category</option>
+                        </select>
+                        <span class="text-danger"></span>
+                    </div>
+
+                    <!-- amount to raise -->
+                    <div class="form-group">
+                        <label asp-for="projectamounttoraise" class="control-label">Amount To Raise</label>
+                        <input type="number" asp-for="projectamounttoraise" class="form-control"
+                                id="projectamounttoraise" name="projectamounttoraise"/>
+                        <span asp-validation-for="projectamounttoraise" class="text-danger"></span>
+                    </div>
+
+                    <!-- creation date -->
+                    @{
+                        var creationDate = DateTimeOffset.Now;
+                    }
+                    <div class="form-group" style="display:none;">
+                        <label asp-for="projectcreationdate" class="control-label">Creation Date</label>
+                        <input type="date" asp-for="projectcreationdate" class="form-control" 
+                                id="projectcreationdate" name="projectcreationdate"/>
+                        <span asp-validation-for="projectcreationdate" class="text-danger"></span>
+                    </div> 
+
+                    <!-- closing date -->
+                    <div class="form-group">
+                        <label asp-for="projectclosingdate" class="control-label">Closing Date</label>
+                        <input type="date" asp-for="projectclosingdate" class="form-control"
+                                id="projectclosingdate" name="projectclosingdate" />
+                        <span asp-validation-for="projectclosingdate" class="text-danger"></span>
+                    </div>
+
+                    <hr/>
+                    <!-- RETURNS -->
+                    <label class="control-label">Shares</label>
+
+                    <div class="row project-edit-card-wrapper">
+                        <!-- ordinary shares card -->
+                        <div class="col-sm-3 card-edit">
+                            <label asp-for="nbshareordinary" class="control-label">Number of ordinary shares</label>
+                            <input type="number" asp-for="nbshareordinary" class="form-control"
+                            name="nbshareordinary" id="nbshareordinaryCreateP" onkeyup="checkNbShareOrdinary()"/>
+                            <span asp-validation-for="nbshareordinary" class="text-danger" id="nbOrdinaryError"></span>
+                        </div>
+
+                        <!-- preferencial shares card -->
+                        <div class="col-sm-3 card-edit">
+                            <label asp-for="nbsharepreferencial" class="control-label">Number of preferencial shares</label>
+                            <input type="number" asp-for="nbsharepreferencial" class="form-control"
+                                name="nbsharepreferencial" id="nbsharepreferencialCreateP" onkeyup="checkNbSharePreferencial()"/>
+                            <span asp-validation-for="nbsharepreferencial" class="text-danger" id="nbPreferencialError"></span>
+                        </div>
+                        
+                        <!-- non-voting shares card -->
+                        <div class="col-sm-3 card-edit">
+                            <label asp-for="nbsharenonvoting" class="control-label">Number of non-voting shares</label>
+                            <input type="number" asp-for="nbsharenonvoting" class="form-control"
+                                name="nbsharenonvoting" id="nbsharenonvotingCreateP" onkeyup="checkNbShareNonvoting()"/>
+                            <span asp-validation-for="nbsharenonvoting" class="text-danger" id="nbNonvotingError"></span>
+                        </div>
+
+                        <!-- redeemable shares card -->
+                        <div class="col-sm-3 card-edit">
+                            <label asp-for="nbshareredeemable" class="control-label">Number of redeemable shares</label>
+                            <input type="number" asp-for="nbshareredeemable" class="form-control"
+                                name="nbshareredeemable" id="nbshareredeemableCreateP" onkeyup="checkNbShareRedeemable()"/>
+                            <span asp-validation-for="nbshareredeemable" class="text-danger" id="nbRedeemableError"></span>
+                        </div>
+                    </div>
+
+                    <!-- images -->
+                    <label class="control-label">Gallery</label>
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <!-- image1 -->
+                            <div class="fU">
+                                <input type="file" asp-for="projectimage1"  class="inputfile"
+                                    id="fileOne" name="fileOne" onchange="readUrlFileOne(this)"/>
+
+                                <label for="fileOne">
+                                    <img id="imgFileOne" src="~/images/noImageAvailable.jpg" class="img-responsive mAuto"/>
+                                    <div class="edit"><i class="fa fa-pencil fa-lg"></i></div>
+                                </label>
+                            </div>
+                            <span class="text-danger" id="pc1Error"></span>
+                        </div>
+                        
+                        <div class="form-group col-sm-3">
+                            <!-- image2 -->
+                            <div class="fU">
+                                <input type="file" asp-for="projectimage2"  class="inputfile"
+                                    id="fileTwo" name="fileTwo" onchange="readUrlFileTwo(this)"/>
+
+                                <label for="fileTwo">
+                                    <img id="imgFileTwo" src="~/images/noImageAvailable.jpg" class="img-responsive mAuto"/>
+                                    <div class="edit"><i class="fa fa-pencil fa-lg"></i></div>
+                                </label>
+                            
+                            </div>
+                            <span class="text-danger" id="pc2Error"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <!-- image3 -->
+                            <div class="fU">
+                                <input type="file" asp-for="projectimage3"  class="inputfile"
+                                    id="fileThree" name="fileThree" onchange="readUrlFileThree(this)"/>
+
+                                <label for="fileThree">
+                                    <img id="imgFileThree" src="~/images/noImageAvailable.jpg" class="img-responsive mAuto"/>
+                                    <div class="edit"><i class="fa fa-pencil fa-lg"></i></div>
+                                </label>
+                            
+                            </div>
+                            <span class="text-danger" id="pc3Error"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <!-- image4 -->
+                            <div class="fU">
+                                <input type="file" asp-for="projectimage4"  class="inputfile"
+                                    id="fileFour" name="fileFour" onchange="readUrlFileFour(this)"/>
+
+                                <label for="fileFour">
+                                    <img id="imgFileFour" src="~/images/noImageAvailable.jpg" class="img-responsive mAuto"/>
+                                    <div class="edit"><i class="fa fa-pencil fa-lg"></i></div>
+                                </label>
+                            
+                            </div>
+                            <span class="text-danger" id="pc4Error"></span>
+                        </div>
+                    </div>
+
+                    <!-- submit button -->
+                    <div class="btn-form-wrapper">
+                        <input type="submit" value="Create Project" class="btn" id="btnCreateProject" />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function checkNbShareOrdinary(){
+        var nbshareordinary = @ViewBag.nbshareordinary;
+        var txtnbOrdinary = parseFloat($('#nbshareordinaryCreateP').val());
+        
+        if(txtnbOrdinary>nbshareordinary){
+            $('#nbOrdinaryError').text('Must not exceed '+nbshareordinary);
+        }
+        else{
+            $('#nbOrdinaryError').text('');
+            $('#nbOrdinaryError').css('display: none;');
+        }
+    }
+
+    function checkNbSharePreferencial(){
+        var nbsharepreferencial = @ViewBag.nbsharepreferencial;
+        var txtnbPreferencial= parseFloat($('#nbsharepreferencialCreateP').val());
+        
+        if(txtnbPreferencial>nbsharepreferencial){
+            $('#nbPreferencialError').text('Must not exceed '+nbsharepreferencial);
+        }
+        else{
+            $('#nbPreferencialError').text('');
+            $('#nbPreferencialError').css('display: none;');
+        }
+    }
+
+    function checkNbShareNonvoting(){
+        var nbsharenonvoting = @ViewBag.nbsharenonvoting;
+        var txtnbNonvoting= parseFloat($('#nbsharenonvotingCreateP').val());
+        
+        if(txtnbNonvoting>nbsharenonvoting){
+            $('#nbNonvotingError').text('Must not exceed '+nbsharenonvoting);
+        }
+        else{
+            $('#nbNonvotingError').text('');
+            $('#nbNonvotingError').css('display: none;');
+        }
+    }
+
+    function checkNbShareRedeemable(){
+        var nbshareredeemable = @ViewBag.nbshareredeemable;
+        var txtnbRedeemable= parseFloat($('#nbshareredeemableCreateP').val());
+        
+        if(txtnbRedeemable>nbshareredeemable){
+            $('#nbRedeemableError').text('Must not exceed '+nbshareredeemable);
+        }
+        else{
+            $('#nbRedeemableError').text('');
+            $('#nbRedeemableError').css('display: none;');
+        }
+    }
+    
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

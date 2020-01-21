@@ -1,0 +1,39 @@
+@model cFunding.Models.transaction
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this Transaction?</h3>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>transaction id</th>
+                <th>project</th>
+                <th>user</th>
+                <th>amount</th>
+                <th>date</th>
+                <th>account email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(model => model.id)</td>
+                <td>>@Html.DisplayFor(model => model.fkproject.projectname)</td>
+                <td>>@Html.DisplayFor(model => model.fkuser.username)</td>
+                <td>>@Html.DisplayFor(model => model.amount)</td>
+                <td>>@Html.DisplayFor(model => model.transactiondate)</td>
+                <td>>@Html.DisplayFor(model => model.accountemail)</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

@@ -1,0 +1,99 @@
+@model IEnumerable<cFunding.Models.contactus>
+@{
+    Layout="~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    ViewData["Title"] = " Manage Mails Messages";
+}
+<!--------------- Manage users  ------------->
+
+<h2>Manage Mails/ Contact Messages</h2>    
+
+<div class="row">
+    <div class="col-md-7 widget admin-contactus-data">
+        <table>
+            <thead>
+                <tr>
+                    <th>Message ID</th>
+                    <th>User ID</th>
+                    <th>Sender Name</th>
+                    <th>Sender Email</th>
+                    <th>Subject</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        <p>@Html.DisplayFor(modelItem => item.id)</p>
+                    </td>
+                    <td>
+                        <p>@Html.DisplayFor(modelItem => item.fkuser)</p>
+                    </td>
+                    <td>
+                        <p>@Html.DisplayFor(modelItem => item.sendername)</p>
+                    </td>
+                    <td class="senderEmail">
+                        <p>@Html.DisplayFor(modelItem => item.senderemail)</p>
+                    </td>
+                    <td>
+                        <p>@Html.DisplayFor(modelItem => item.mailsubject)</p>
+                    </td>
+                    <td>
+                        <p>@Html.DisplayFor(modelItem => item.mailmessage)</p>
+                    </td>
+                    <td class="td-icons">
+                        <a asp-action="Details" asp-route-id="@item.id" target="_blank" class="toolT"><i class="fa fa-info-circle"><span class="toolTText">details</span></i></a>
+                        <a href="#" data-toggle="modal" data-target="#contactUsModal" class="toolT contactModalTrigger" >
+                            <i class="fa fa-reply"><span class="toolTText">Reply</span></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>        
+    </div>
+
+</div>
+
+
+<!------------------------------------ Contact us  Modal -------------------------------->
+    <div class="modal fade" id="contactUsModal" tabindex="-1" role="dialog" aria-labelledby="contactUsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <div class="row modal-header-title">
+                    <h3 class="modal-title" id="contactUsModalLabel">Reply to this message</h3>
+                    <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" onclick="clearContactUs()">
+                        <span aria-hidden="true" >&times;</span>
+                    </button>
+                </div>
+            </div>
+            <form asp-controller="contactus" asp-action="replyMessage" id="contactUsReply" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>To</label>
+                        <input type="text" class="form-control label-control" id="destinatorEmail" name="useremail" value="">
+                        <span class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailSubjectReply">Email Subject</label>
+                        <input type="text" class="form-control"  placeholder="Enter Subject"
+                                id="emailSubjectReply" name="emailSubjectReply">
+                        <span class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="replyMessage">Message</label>
+                        <textarea class="form-control"  rows="3" placeholder="Enter Message"
+                                id="replyMessage" name="replyMessage"></textarea>
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn">Reply</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>

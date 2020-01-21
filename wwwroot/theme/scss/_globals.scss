@@ -1,0 +1,291 @@
+$orange : #F18701;
+$yellow: #F7B801;
+$night-blue:#00318e;
+$darkgrey: #6a6a6b;
+$lightgrey: #b3b3b3;
+
+body {
+    font-family: 'Roboto', sans-serif;
+    padding-top: 0px;
+    color: $darkgrey;
+    font-size: 15px;
+    
+    @include below($mobile-small){
+        h1 {
+            font-size: 25px;
+        }
+    }
+}
+.body-content {
+    position: relative;
+    display: block;
+    padding: 0px;
+}
+
+.section-top {
+    padding-top: 70px;
+    margin-top: -22px;
+}
+
+i {
+    margin: 10px;
+}
+
+.error {
+    color:red;
+}
+
+.tcenter {
+    text-align: center;
+}
+
+.tright {
+    text-align: right;
+}
+
+.fbold {
+    font-weight: bold;
+}
+
+.mAuto {
+    margin: auto;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.btn-default {
+    color: #333;
+    font-weight: bold;
+    height: 45px;
+}
+
+.btn {
+    a {
+        text-decoration: none;
+        color: white;
+    }
+}
+.p-0 {
+    padding: 0;
+}
+
+.b-white {
+    background-color: white;
+}
+
+.green {
+    color: #109835;
+}
+
+.purple {
+    color: #8a5ce0;
+}
+
+.orange {
+    color: $orange;
+}
+
+.lightgrey {
+    color: $lightgrey;
+}
+
+.darkgrey {
+    color: $darkgrey;
+}
+
+.highlighted {
+    color: $orange;
+    font-size: 30px;
+    font-weight: bold
+}
+
+.dfxWrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.dflexColumn {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+textarea {
+    resize: none;
+}
+
+.logo {
+    border-radius: 20%;
+}
+
+.category-tag {
+    background-color: #0F8B8D;
+    color: white;
+    padding: 5px 11px;
+    border-radius: 4px;
+    width: max-content;
+}
+
+.img-logo-wrapper {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-left: 5px solid white;
+    border-bottom: 5px solid white;
+    padding: 10px 15px;
+
+    img {
+        height: 100%;
+        width: auto;
+    }
+    
+}
+
+.rounded-img {
+    border-radius: 50px;
+}
+
+.pageTitle{
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding-top: 140px;
+    padding-bottom: 30px;
+    margin-top: -50px;
+    margin-bottom: 0px;
+}
+
+a, a:hover, a:active, a:visited, a:focus {
+    text-decoration:none;
+}
+
+// --------------------- progress bar ----------------------
+.progress {
+    width: 100%;
+    margin-bottom: 0px;
+    height: 7px;
+}
+
+.progress-bar {
+    background-color: $yellow;
+}
+
+
+// ---------------------- nav tabs ----------------------------
+.tab-content {
+    padding-top: 20px;
+}
+
+.nav-tabs {
+     li {
+        text-align: center;
+
+        a {
+            color: #f4f4f4;
+            background-color: #6f6f6f;
+            font-size: 16px;
+
+            &:hover {
+                background-color: #adadad;
+            }
+        }
+    }
+}
+
+// ------------------- buttons -----------------------------
+.btn-success {
+    color: rgb(251, 251, 251);
+    background-color: #4eb67f;
+    border-color: #4eb67f;
+    display: inline-block;
+    border-radius: 50px;
+    padding: 19px 40px;
+    background: transparent;
+    border-style: solid;
+    border-width: 2px;
+    text-align: center;
+    width: auto;
+    text-transform: uppercase;
+    line-height: 1em;
+    font-weight: 700;
+    min-width: 90px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+
+    &:active:hover, &:hover {
+        background-color: #4eb67f;
+        border-color: #4eb67f;
+    }
+}
+
+table {
+    th {
+        text-align: center;
+    }
+
+    tbody {
+        tr {
+            padding: 3px 0px;
+            &:nth-child(even) {
+                background: #EBEBEB;
+            }
+
+            &:nth-child(odd) {
+                background: #f7f7f7;
+            }
+        }
+    }
+    
+}
+
+.date-picker {
+    background:#fff url(../../images/calendar-icon.png)  97% 50% no-repeat ;
+    background-position: 99% 7px;
+    background-size: 24px 25px;
+}
+
+.select-picker {
+    background:#fff url(../../images/arrow-down-icon.png)  97% 50% no-repeat ;
+    background-position: 99% 14px;
+    background-size: 21px 13px;
+
+    -moz-appearance: window;
+    -webkit-appearance: none;
+}
+
+.tox-menu {
+    .tox-collection__group:nth-child(1){
+        display: none;
+    }
+}
+
+.tox-menubar {
+    .tox-mbtn:nth-child(1),.tox-mbtn:nth-child(5), .tox-mbtn:nth-child(6), .tox-mbtn:nth-child(7), .tox-mbtn:nth-child(8){
+        display: none;
+    }
+}
+.wrapper-center{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.admin-contactus-data{
+    width: 100%;
+    
+}
+

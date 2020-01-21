@@ -1,0 +1,42 @@
+.section-admin-funded-project {
+    margin-top: 60px;
+
+    h2 {
+        margin-bottom: 10px;
+    }
+
+    .widget {
+        margin-bottom: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .operations {
+            display: block;
+            width: 180px;
+
+            a {
+                padding: 5px 15px;
+                background-color: #bfcfdc;
+                color: #4e4c4a;
+                border-radius: 3px;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            .btn-wrapper {
+                margin: 13px 0;
+            }
+        }
+    }
+}
+.funded-project-wrapper {
+    width: 100%;
+
+}
+
+.funded-meta-data {
+    font-weight: bold;
+}

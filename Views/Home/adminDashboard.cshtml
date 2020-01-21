@@ -1,0 +1,51 @@
+@{
+    Layout="~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    ViewData["Title"] = " Site Activity";
+}
+
+      <!--------------- session , users , activity  ------------->
+        <h2 >Activity</h2>
+        <div class="activity-row">
+            <div class="widget">
+                <h4>Session opened</h4>
+                <div class="two-columns">
+                    <p class="text">Number of sessions currently opened</p>
+                    <p class="stats"> 15 sessions</p>
+                </div>
+            </div>
+
+            <div class="widget">
+                <h4>User validated</h4>
+                <div class="two-columns">
+                    <p class="text">Number of users currently validated</p>
+                    <p class="stats">@ViewBag.usersRatio<br> of users </p>
+                </div>
+            </div>
+
+            <div class="widget">
+                <h4>Project validated</h4>
+                <div class="two-columns">
+                    <p class="text">Number of projects currently validated</p>
+                    <p class="stats">@ViewBag.projectsRatio <br> of projects </p>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="row activity-diagrams">
+            <div class="col-md-6 widget-diagram">
+                <h4>Site activity</h4>
+                <div class="diagram-img">
+                    <img class="chartJs" src="~/images/graph.png">
+                </div>
+            </div>
+
+            <div class="col-md-6 widget-diagram">
+                <h4>Category Visits</h4>
+                <div class="diagram-img">
+                    <img class="chartJs" src="~/images/piechart.png">
+                </div>
+			</div>
+        </div>

@@ -1,0 +1,42 @@
+@model IEnumerable<cFunding.Models.project>
+@using cfunding.Services;
+
+@{
+    Layout="~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+    ViewData["Title"] = " Manage Funded Projects";
+}
+
+<section class="section-admin-funded-project">
+    <h2>Funded Projects</h2>
+    @foreach(var item in Model)
+    {
+        <div class="widget">
+            <div class="funded-project-wrapper">
+                <div class="row">
+                    <div class="col-sm-2">Project Name</div>
+                    <div class="col-sm-10 funded-meta-data">@item.projectname</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">Amount Raised</div>
+                    <div class="col-sm-10 funded-meta-data">$ @item.projectamounttoraise</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">Owner</div>
+                    <div class="col-sm-10 funded-meta-data">@item.fkuser.username</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">Closing Date</div>
+                    <div class="col-sm-10 funded-meta-data">@item.projectclosingdate</div>
+                </div>    
+            </div>
+            <div class="operations">
+                <div class="btn-wrapper"><a>Pay Owner</a></div>
+                <div class="btn-wrapper"><a>Close Project</a></div>
+            </div>
+        </div>
+    }
+
+</section>

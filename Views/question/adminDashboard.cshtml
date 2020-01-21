@@ -1,0 +1,64 @@
+@model IEnumerable<cFunding.Models.question>
+@using cfunding.Services;
+@using Newtonsoft.Json;
+
+@{
+    Layout="~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    ViewData["Title"] = " Manage Q & A";
+}
+<!--------------- Manage users  ------------->
+
+<h2>Manage Q & A</h2>    
+
+@{
+    var listAnswer = JsonConvert.DeserializeObject<List<answer>>(@ViewBag.listAnswer);
+    var userid = @ViewBag.userid;
+
+    foreach (var item in Model){
+        <div class="question widget">
+            <h4>@item.fkuser.username</h4>
+            <span class="question-date">on @globalMethods.formattedDate(item.questiondate)</span>
+            <p class="p-question">@item.questionmessage</p> 
+            <div class="td-icons">
+                @if (item.validatedQuestion)
+                {
+                    <p class="p-validated">Validated question</p>
+                    <a asp-action="blockQuestion" asp-controller="question" asp-route-id="@item.id" class="toolT"><p class="p-block">Block question<span class="toolTText">Block question</span></p></a>
+                }
+                else
+                {
+                    <a asp-action="validateQuestion" asp-controller="question" asp-route-id="@item.id" class="toolT"><p class="p-validate">Validate<span class="toolTText">validate</span></p></a>
+                }
+            </div>
+            
+            <div id="question@question.id">
+                @foreach(var answer in listAnswer){
+                    @if(@item.id == @answer.fkquestion.id) {
+                            <div class="answer">
+                            <h4>@answer.fkuser.username</h4>
+                            <span class="question-date">on @globalMethods.formattedDate(answer.answerdate)</span>
+                            <p>@answer.answermessage</p>
+                            <div class="td-icons">
+                                @if (answer.validatedAnswer)
+                                {
+                                    <p class="p-validated">Validated answer</p>
+                                    <a asp-action="blockAnswer" asp-controller="answer" asp-route-id="@answer.id" class="toolT"><p class="p-block">Block answer<span class="toolTText">Block answer</span></p></a>
+                                }
+                                else
+                                {
+                                    <a asp-action="validateAnswer" asp-controller="answer" asp-route-id="@answer.id" class="toolT"><p class="p-validate">Validate<span class="toolTText">validate</span></p></a>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    } 
+
+    
+}
+

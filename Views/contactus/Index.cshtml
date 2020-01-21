@@ -1,0 +1,37 @@
+﻿@model IEnumerable<cFunding.Models.contactus>
+
+@{
+    ViewData["Title"] = "Contact us | Home";
+}
+
+<h2 class="pageTitle">Contact Mails Received</h2>
+<section>
+    <table>
+        <thead>
+            <tr>
+                <th>Message id</th>
+                <th>user id</th>
+                <th>sender name</th>
+                <th>sender email</th>
+                <th>mail subject</th>
+                <th>mail message</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.fkuser.id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.sendername)</td>
+                    <td>@Html.DisplayFor(modelItem => item.senderemail)</td>
+                    <td>@Html.DisplayFor(modelItem => item.mailsubject)</td>
+                    <td>@Html.DisplayFor(modelItem => item.mailmessage)</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

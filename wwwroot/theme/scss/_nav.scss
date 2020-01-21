@@ -1,0 +1,241 @@
+.nav-container {
+    display:flex;
+    position:relative;
+
+    @media (max-width: 767px) {
+        padding-left: 0px;
+    }
+}
+
+.navbar {
+    max-height: 70px;
+    
+
+    a {
+        &:hover {
+            text-decoration: none;
+            background-color: #555755;
+        }
+    }
+
+    ul li a {
+        &:hover {
+            text-decoration: none;
+            background-color: #555755;
+        }
+    }
+}
+
+.navbar-fixed-top {
+    background-color: transparent;
+
+    a {
+        color:white;
+    }
+}
+
+.scrolled{
+    background-color: rgb(27, 28, 29);
+    transition: 0.3s;
+    height: 70px;
+}
+
+.navbar-nav {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.navbar-buttons {
+    margin-left: auto;
+    font-size: 18px;
+
+    a {
+        color: #fff;
+        border-color: #5e655e;
+        display: inline-block;
+        border-radius: 50px;
+        padding: 15px;
+        background: transparent;
+        border-style: solid;
+        border-width: 2px;
+        text-align: center;
+        text-transform: uppercase;
+        line-height: 18px;
+        font-weight: 700;
+        min-width: 90px;
+        margin: 8px 2px;
+    }
+
+    .bigBtn {
+        @media (max-width: 425px) {
+            display: none;
+        }
+    }
+
+    .smallBtn{
+        min-width: 40px;
+        height: 40px;
+        padding: 12px;
+        display: none;
+
+        @media (max-width: 425px) {
+            display: inline-block;
+        }
+    }
+
+}
+
+.navbar-toggle {
+    margin: 14px 10px;
+
+    .icon-bar {
+        background-color: white;
+        color: white;
+    }
+}
+
+.navbar-header {
+    padding: 0px 20px;
+
+    .navbar-brand {
+        margin-top: 10px;
+        margin-left: 10px;
+        width: 100px;
+        height: 50px;
+        background-image: url("../../images/equity-logo.png");
+        background-size: cover;
+    
+        &:hover {
+            background-color: transparent;
+        }    
+    }
+}
+
+.navbar-collapse {
+    margin-top: 5px;
+    font-size: 18px;
+
+    @media (max-width: 767px) {
+        background-color: black;
+        position: absolute;
+        top: 63px;
+        left: 15px;
+        width: 100%;
+    }
+}
+
+// -------------------- user menu ---------------------
+.user-menu {
+    float: right;
+
+    img {
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+    }
+
+    p {
+        font-size: 18px;
+        margin: 5px 0;
+    }
+
+    a {
+        border: 0px;
+        width: auto;
+
+        &:hover {
+            background: none;
+        }
+    }
+
+}
+
+.dropdown-menu {
+    top: 48px;
+    min-width: 250px;
+    min-height: 200px;
+    text-align: center;
+    padding: 20px;
+    position: absolute;
+    right: 0;
+    left: auto;
+    top: 70px;
+    background-color: rgba(900, 350, 400, 0.9);
+    
+    
+    a {
+        border-radius: 30px;
+        background-color: #4eb67f;
+        color: white;
+        font-weight: bold;
+        padding: 14px 23px;
+        font-size: 17px;
+        letter-spacing: 0.5px;
+
+        &:hover {
+            background-color: #2b608f;
+        }
+    }
+
+    .dropdown-img-wrapper {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto; 
+        img {
+            width: auto;
+            height: 100%;
+        }
+    }
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus, .nav > li > a:hover, .nav > li > a:focus {
+    background-color: black;
+    border: 1px 1px 0px 1px;
+    border-color: #747272;
+
+}
+
+
+.project-dropdown .open, .project-dropdown .dropdown:hover {
+    .dropdown-menu {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        padding: 0px;
+        left: 0;
+        top: 52px;
+        min-height: auto;
+
+        a {
+            background-color: black;
+            width: 100%;
+            border-radius: 0px;
+            text-align: left;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            letter-spacing: 0.7px;
+
+            &:hover {
+                background-color: #747272;
+
+            }
+        }
+    }
+}
+
+button.btn.btn-default.navbar-btn {
+    border-radius: 5px;
+    width: 100px;
+    padding: 10px;
+    background-color: white;
+    color: black;
+}
+
+a.btn.btn-info.navbar-btn {
+    border-radius: 5px;
+    width: 150px;
+    border: 0px;
+    padding: 10px;
+}

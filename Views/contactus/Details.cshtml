@@ -1,0 +1,27 @@
+﻿@model cFunding.Models.contactus
+
+@{
+    ViewData["Title"] = "Contact us | Details";
+}
+
+<h2 class="pageTitle">Message Detail</h2>
+<section>
+    <p><b>Message id</b></p>
+    <p>@Html.DisplayFor(model => model.id)</p>
+
+    <p><b>user id</b></p>
+    <p>@Html.DisplayFor(model => model.fkuser.id)</p>
+    
+    <p><b>sender name</b></p>
+    <p>@Html.DisplayFor(model => model.sendername)</p>
+
+    <p><b>sender email</b></p>
+    <p>@Html.DisplayFor(model => model.senderemail)</p>
+
+    <p><b>mail subject</b></p>
+    <p>@Html.DisplayFor(model => model.mailsubject)</p>
+    
+    <p><b>mail message</b></p>
+    <p>@Html.DisplayFor(model => model.mailmessage)</p>
+    
+</section>

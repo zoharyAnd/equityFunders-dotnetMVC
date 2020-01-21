@@ -1,0 +1,30 @@
+﻿@model cFunding.Models.question
+@using cfunding.Services;
+
+@{
+    ViewData["Title"] = "Question | Details";
+}
+
+
+<section>
+    <table>
+        <thead>
+            <tr>
+                <th>Question id</th>
+                <th>user id</th>
+                <th>question date</th>
+                <th>question message</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(model => model.id)</td>
+                <td>@Html.DisplayFor(model => model.fkuser.id)</td>
+                <td>closing on @globalMethods.formattedDate(this.Model.questiondate)</td>
+                <td>@Html.DisplayFor(model => model.questionmessage)</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</section>

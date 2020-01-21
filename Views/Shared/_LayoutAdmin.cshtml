@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin | @ViewData["Title"]</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/theme/css/site.css" />
+        <link rel="stylesheet" href="~/lib/jquery-ui/jquery-ui.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rajdhani:400,500,700" >
+        <link rel="stylesheet" href="~/lib/tagsinput/bootstrap-tagsinput.css" />
+        <link rel="stylesheet" href="~/lib/jquerycountdown/jquery.countdown.css">
+        <link rel="stylesheet" href="~/lib/fancy-tabs/fancy-tabs.css" />
+
+        <link rel="stylesheet" href="~/theme/css/styles.css" asp-append-version="true" />
+        
+
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/theme/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/jquery-ui/jquery-ui.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rajdhani:400,500,700" >
+        <link rel="stylesheet" href="~/lib/tagsinput/bootstrap-tagsinput.css" />
+        <link rel="stylesheet" href="~/lib/jquerycountdown/jquery.countdown.css">
+        <link rel="stylesheet" href="~/lib/fancy-tabs/fancy-tabs.css" />
+        
+        <link rel="stylesheet" href="~/theme/css/styles.css" asp-append-version="true" />
+        
+    </environment>
+</head>
+<body>
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/jquery-ui/jquery-ui.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+        <script src="~/lib/tagsinput/bootstrap-tagsinput.js"></script>
+        
+        <script src="~/js/validationHandler.js"></script>
+        <script src="~/js/shareHandler.js"></script>
+        <script src="~/js/urlHandler.js"></script>
+        <script src="~/js/filterHandler.js"></script>
+        <script src="~/lib/jquerycountdown/jquery.countdown.min.js?v=1.0.0.0"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/answerHandler.js"></script>
+        <script src="~/js/tinyMCEHandler.js"></script>
+        
+    </environment>
+    <environment exclude="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/jquery-ui/jquery-ui.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+        <script src="~/lib/tagsinput/bootstrap-tagsinput.js"></script>
+        
+        <script src="~/js/validationHandler.js"></script>
+        <script src="~/js/shareHandler.js"></script>
+        <script src="~/js/urlHandler.js"></script>
+        <script src="~/js/filterHandler.js"></script>
+        <script src="~/lib/jquerycountdown/jquery.countdown.min.js?v=1.0.0.0"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/answerHandler.js"></script>
+        <script src="~/js/tinyMCEHandler.js"></script>
+        
+    </environment>
+    @RenderSection("Scripts", required: false)
+
+    <!-- ----------------------------------  NAVBAR   -------------------------------->
+    <script>
+        $(function() {
+            var header = $(".navbar");
+        
+            $(window).scroll(function() {    
+                var scroll = $(window).scrollTop();
+                if (scroll >= 50) {
+                    header.addClass("scrolled");
+                } else {
+                    header.removeClass("scrolled");
+                }
+            });
+        
+        });
+    </script>
+
+    <nav class="navbar navbar-expand navbar-fixed-top nav-admin">
+        <div class="container-fluid" style="display:flex">
+            <div class="navbar-header">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index"></a>
+            </div>
+            <div class="navbar-collapse collapse">
+            </div>
+            <div class="navbar-buttons">
+                <div class="dropdown user user-menu">
+                    <a href="#"  class="navbar-brand dropdown-toggle" data-toggle="dropdown">
+                        <div style="display: inline-block">
+                            <span>
+                                @ViewBag.username&nbsp;
+                            </span>
+                            <img src="~/@ViewBag.userphoto" width="30"/>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu">
+                        <img src="~/@ViewBag.userphoto"/>
+                        <p>@ViewBag.username</p>
+                        <a class="btn btn-primary pull-left" href="~/user/Details/@ViewBag.userid ">View profile</a>
+                        <a class="btn btn-primary pull-right" asp-area="" asp-controller="Home" asp-action="logout">Logout</a>
+                    </div>
+                </div>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>       
+            </div>
+        </div>
+    </nav>
+
+    <section class="section-admin">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2 sidebar">
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="adminDashboard"><i class="fa fa-signal"></i>Activity Status</a></li>
+                        <li><a asp-controller="user" asp-action="adminDashboard"><i class="fa fa-users"></i>Manage Users</a></li>
+                        <li>
+                            <a asp-controller="project" asp-action="adminDashboard"><i class="fa fa-tasks"></i>Manage Projects</a>
+                        </li>
+                        <li>Payouts</li>
+                        <li><a asp-controller="transaction" asp-action="adminDashboard"><i class="fa fa-money"></i>Manage Payments</a></li>
+                        <li><a asp-controller="contactus" asp-action="adminDashboard"><i class="fa fa-envelope"></i>Manage Mails</a></li>
+                        <li><a asp-controller="question" asp-action="adminDashboard"><i class="fa fa-envelope"></i>Manage Q & A</a></li>
+                        
+                    </ul>
+                </div>
+                
+                <div class="col-md-10 content-admin">
+                    <div class="container-fluid">
+                        <span class="date-today">@DateTime.Now.ToString("dddd dd MMMM yyyy")</span>
+                        
+                        @RenderBody()
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

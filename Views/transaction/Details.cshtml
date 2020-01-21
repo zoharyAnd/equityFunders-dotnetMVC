@@ -1,0 +1,60 @@
+@model cFunding.Models.transaction
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fkproject.projectname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fkuser.username)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.transactiondate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.accountemail)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <td>
+                <td>
+                    @Html.DisplayFor(model => model.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.fkproject.projectname)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.fkuser.username)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.transactiondate)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.accountemail)
+                </td>
+            </tr>
+        </tbody>
+</table>
+    
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

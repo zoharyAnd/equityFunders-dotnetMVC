@@ -1,0 +1,52 @@
+@model IEnumerable<cFunding.Models.project>
+@using cfunding.Services;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 class="pageTitle">My projects</h2>
+
+<section>
+    <div class="container">
+        <div class="row card-container">
+            <div class="col-sm-12  dfxWrap">
+                @foreach (var item in Model){
+                    <a asp-controller="project" asp-action="Details" asp-route-id="@item.id" class="card-anchor-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <img src="~/@item.projectimage1" alt="projectimage" class="card-img-top img-responsive"/>
+                                @if (@item.validatedProject == true){
+                                    <span class="project-status published">Published</span>
+                                }
+                                else{
+                                    <span class="project-status waiting">Waiting for validation</span>
+                                }
+                                <span class="card-date">
+                                    closing on @globalMethods.formattedDate(item.projectclosingdate)
+                                </span>
+                            </div>
+                            
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    @globalMethods.trimTitle(item)
+                                </h4>
+                                <p class="card-text"> @Html.Raw(globalMethods.trimDescription(item)) </p>
+                                <p>Category: @item.fkcategory.categoryname</p>
+                                
+                                <span class="pull-left meta-card">$ @item.projectamountraised raised of  $ @item.projectamounttoraise </span> 
+
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: @globalMethods.percentRange(item)" aria-valuenow="25" aria-valuemin="0"  aria-valuemax="100"></div>
+                                </div>
+
+                                <span class="pull-right meta-card">@globalMethods.percentRaised(item) % funded </span>
+                            
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+
+    </div>
+</section>

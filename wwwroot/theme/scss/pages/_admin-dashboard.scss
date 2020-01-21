@@ -1,0 +1,270 @@
+.nav-admin {
+  background-color: black;
+  min-height: 70px;
+}
+
+.section-admin {
+  margin-top: 70px;
+}
+
+.sidebar {
+	background-color: #282a3c;
+  min-height: 100vh;
+  padding-top: 40px;
+
+  ul {
+    padding-left: 0px;
+     li {
+      list-style: none;
+      align-items: center;
+      height: 50px;
+      display: flex;
+      
+      &:hover {
+        background-color: #52567285;
+      }
+      a {
+        text-decoration: none;
+        color: #e6e8ff;
+        font-size: 17px;
+       
+        i {
+          margin: 15px;
+          color: #9fa3c2;
+        }
+      }
+
+    }
+  }
+
+}
+
+.widget {
+  background: #ebebef;
+  padding: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  h4 {
+    font-weight: bold;
+    margin: 0px;
+  }
+}
+
+.two-columns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .text {
+    color: #9a9a9a;
+    margin-bottom: 0px;
+  }
+
+  .stats {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    width: 120px;
+    margin-left: 15px;
+    margin-bottom: 0px;
+  }
+
+}
+
+
+.td-img-wrapper {
+  text-align: center;
+  overflow: hidden;
+  height: 60px;
+  width: 200px;
+  margin: 0 auto;
+
+  img {
+    height: 60px;
+    width: auto;
+  }
+}
+  
+.td-icons {
+  padding: 0px 10px;
+  text-align: center;
+
+  i {
+    color: #5a5a5d;
+    font-size: larger;
+  }
+
+  .p-validated {
+    padding: 3px 5px;
+    margin: 0px auto;
+    font-weight: bold;
+  }
+
+  .p-block {
+    padding: 3px 5px;
+    margin-bottom: 0px;
+    background-color: #d4651a;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 6px;
+    width: 120px;
+    margin: 0 auto;
+  }
+
+  .p-validate {
+    padding: 3px 5px;
+    margin-bottom: 0px;
+    background-color: #1fc72c;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 6px;
+    width: 120px;
+    margin: 0 auto;
+  }
+}
+
+.toolT {
+  position: relative;
+
+  &:hover .toolTText {
+    visibility: visible;
+  }
+
+  .toolTText {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgba(177, 177, 182, 0.81);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+
+    position: absolute;
+    z-index: 1;
+  }
+
+}
+
+.content-admin {
+  position: relative;
+
+  .date-today{
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: -5rem;
+    padding: 14px;
+    background: #ebebef;
+    
+  }
+}
+
+.activity-row {
+  display: flex;
+  justify-content: space-between;
+
+  .widget {
+    max-width: 340px;
+  }
+}
+
+.activity-diagrams {
+  margin-top: 20px;
+}
+
+.widget-diagram {
+
+  .diagram-img {
+      text-align: -webkit-center;
+  }
+  &:nth-child(1) {
+    border-right: 1px solid #e4e4e4;
+  }
+}
+
+
+.admin-user-data {
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 5px;
+    text-align: center;
+
+    tr {
+      margin: 5px 0;
+
+      td {
+        width: 135px;
+      }
+    }
+  }
+}
+
+.admin-ratings-panel {
+  margin-left: 25px;
+}
+
+.admin-projects-table {
+  border-collapse: separate;
+  border-spacing: 0 5px;
+  width: 100%;
+
+  .td-description {
+    max-width: 250px;
+    border-right: 1px solid #dedede;
+    padding: 0px 10px;
+  }
+
+  .td-amount {
+    padding-left: 25px;
+  }
+
+  .td-img {
+    width: 160px;
+
+    .td-img-wrapper {
+      display: flex;
+      justify-content: center;
+
+      .img-container {
+        width: 80px;
+        height: 60px;
+        overflow: hidden;
+
+        img {
+          height: 100%;
+          width: auto;
+        }
+      }
+    }
+  }
+  
+}
+
+.question {
+  &.widget {
+    margin-bottom: 30px;
+    padding: 20px;
+
+    .answer {
+      background-color: #fafafa;
+      padding: 20px 15px;
+      margin: 5px 0px;
+    }
+  }
+
+  .td-icons {
+    text-align: right;
+    text-align: right;
+    margin-bottom: 14px;
+    padding-right: 0px;
+  
+    .p-block , .p-validate{
+      margin-right: 0px;
+    }
+  }
+}
+

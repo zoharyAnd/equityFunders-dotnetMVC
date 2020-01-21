@@ -1,0 +1,80 @@
+form {
+    text-align: left;
+    background-color: white;
+    padding: 20px;
+
+    @include below ($mobile-small){
+        padding: 0px;
+
+        .modal-body {
+            padding: 0px;
+        }
+    }
+}
+
+.form-section {
+    font-size: 16px;
+    .container {
+        box-shadow: 0 16px 24px 2px rgba(0,0,0,.14), 0 6px 30px 5px rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2);
+        background-color: white;
+        padding: 37px 70px;
+    }
+}
+.form-control {
+    border: 0;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.form-group {
+    input , select {
+        border-bottom: 1px solid #c5c5c5;
+        background-color: whitesmoke;
+        border-radius: 5px;
+        padding-left: 21px;
+        height: 40px;
+    }
+
+    textarea {
+        border-bottom: 1px solid #c5c5c5;
+        background-color: whitesmoke;
+        border-radius: 5px;
+        padding: 21px;
+    }
+
+}
+
+.formcontrolP{
+    border-bottom: 1px solid #c5c5c5;
+    background-color: whitesmoke;
+    border-radius: 25px;
+    padding: 10px 21px;
+    min-height: 40px;
+}
+
+.btn {
+    width: auto;
+    font-weight: bold;
+    border-radius: 30px;
+    background-color: #4eb67f;
+    color: white;
+    font-weight: bold;
+    padding: 15px 30px;
+    font-size: 17px;
+    letter-spacing: 0.5px;
+}
+
+.btn-form-wrapper, .modal-footer {
+    margin-bottom: -21px;
+    text-align: center;
+    margin-top: 14px;
+}
+
+.label-control {
+    border-bottom: 1px solid #c5c5c5;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    padding: 11px 21px;
+    height: 40px;
+}

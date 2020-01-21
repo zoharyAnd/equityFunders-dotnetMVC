@@ -1,0 +1,36 @@
+.lblphoto {
+    margin: 13px 0;
+}
+
+.companyLogo {
+    margin-bottom: 27px;
+}
+
+.sharevalue {
+    display: flex;
+}
+.sharevalue span {
+    font-size: 30px;
+    margin-right: 5px;
+}
+
+.sharesHead {
+    margin-top: 10px;
+}
+
+#shareStructTabs {
+    li {
+        width: 25%;
+    }
+}
+
+#editprofileTabs {
+    .nav-item {
+        width: 27%;
+    }
+}
+
+.nav-tabs > li.nav-item-edit.fancyTab.active > a {
+    padding-top: 28px;
+    padding-bottom: 3px;
+}

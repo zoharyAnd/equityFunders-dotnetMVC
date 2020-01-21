@@ -1,0 +1,300 @@
+@model cFunding.Models.project;
+@using cfunding.Services;
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="social-share-wrapper">
+    @if(ViewBag.userid == null || ViewBag.anotherUser == "true"){}
+    else {
+        <div class="social-block pencil"><a a asp-action="Edit" asp-route-id="@Model.id" ><i class="fa fa-pencil"></i></a></div>
+    }
+    <div class="social-block facebook"><a><i class="fa fa-facebook"></i></a></div>
+    <div class="social-block twitter"><a><i class="fa fa-twitter"></i></a></div>
+    <div class="social-block linkedin"><a><i class="fa fa-linkedin"></i></a></div>
+    <div class="social-block download"><a><i class="fa fa-cloud-download"></i></a></div>
+</div>
+
+<!-- header banner -->
+<section class="section-top" style="
+    background:url('/@Html.DisplayFor(model => model.projectimage1)'); 
+    background-position: center;
+    background-size: cover;
+        height: 520px;
+">
+    <div class="container-fluid" >
+        <div class="row" >
+            <div class="col-sm-12 headBanner" >
+                <div class="headerContent">
+                    <h1>@Html.DisplayFor(model => model.projectname)</h1>
+                    <div class="ctdown">
+                        <ul id="ulcountdown">
+                            <li><span class="days">00</span><p class="days_text">Days</p></li>
+                            <li class="seperator">:</li>
+                            <li><span class="hours">00</span><p class="hours_text">Hours</p></li>
+                            <li class="seperator">:</li>
+                            <li><span class="minutes">00</span><p class="minutes_text">Minutes</p></li>
+                            <li class="seperator">:</li>
+                            <li><span class="seconds">00</span><p class="seconds_text">Seconds</p></li>
+                        </ul>
+                        <h4>closing on @globalMethods.formattedDate(this.Model.projectclosingdate)</h4>
+                    </div>
+                    <h4>
+                        <span class="highlighted">
+                            $ @Html.DisplayFor(model => model.projectamountraised)
+                        </span> 
+                        raised of 
+                        <span class="highlighted">
+                            $ @Html.DisplayFor(model => model.projectamounttoraise)
+                        </span>
+                        from 
+                        <span class="highlighted">@ViewBag.nbInvestors</span> 
+                        investors
+                    </h4>
+                    
+                </div>
+                <div class="progress">
+                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:@globalMethods.percentRange(this.Model)"></div>
+                        <label>@globalMethods.percentRaised(this.Model) % raised</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container container-project-details">
+        <div style="display:none;">
+            @Html.TextBoxFor(model => model.projectclosingdate, "{0:MM/dd/yyyy}", new{@id="lbldate"})
+            
+            <span id="sharevalueOrdinaryDetailsP">@ViewBag.shareValueOrdinary</span>
+            <span id="sharevaluePreferencialDetailsP">@ViewBag.shareValuePreferencial</span>
+            <span id="sharevalueNonvotingDetailsP">@ViewBag.shareValueNonvoting</span>
+            <span id="sharevalueRedeemableDetailsP">@ViewBag.shareValueRedeemable</span>
+        </div>
+        
+        <div class="p-details-description">
+            <img src="~/@ViewBag.creatorPhoto" align="left"/>
+            <span class="category-tag">@Html.DisplayFor(model => model.fkcategory.categoryname)</span>
+            <p class="lightgrey" >
+                By @ViewBag.creatorName Representant of @ViewBag.companyName ,  @ViewBag.creatorCountry 
+            </p>                    
+            <p>@Html.Raw(ViewBag.pdesc)</p>
+        </div> 
+
+        <!-- countdown -->
+        <script type="text/javascript">
+            var lbldate = $('#lbldate').val();
+            var closingd = lbldate.replace(/ /gi, '/');
+            
+            $('#ulcountdown').countdown({
+                date: closingd,
+                offset: -8,
+                day: 'Day',
+                days: 'Days'
+            }, function () {
+                alert('Done!');
+            });
+            
+        </script>
+        @{
+            var nbOrdinary = @Html.DisplayFor(model => model.nbshareordinary);
+            var nbPreferencial = @Html.DisplayFor(model => model.nbsharepreferencial);
+            var nbNonvoting = @Html.DisplayFor(model => model.nbsharenonvoting);
+            var nbRedeemable = @Html.DisplayFor(model => model.nbshareredeemable);
+        }
+        
+        <!-- share details -->
+        <div class="row panel-details">
+            <div class="col-md-7 detailsPanel">
+                <h3>Share Structure</h3>
+                <div class="share-@nbOrdinary">
+                    <h4>Ordinary shares</h4>
+                    @if(ViewBag.descordinary == null){
+                        <p>
+                            Ordinary shares, or common shares, represent the basic voting shares. <br>
+                            Holders of ordinary shares are entitled to: 
+                        </p>
+                        <ul>
+                            <li>1 vote per share</li>
+                            <li>No predetermined dividend amounts</li>
+                        </ul>
+                        <p>
+                            Its an equity ownership proportionally with all other ordinary shareholders, according to their percentage of ownership in the company.
+                        </p>
+                        <span><a href="https://www.investopedia.com/terms/o/ordinaryshares.asp" target="_blank">www.investopedia.com</a> By Akhilesh Ganti.  March (2019)</span>
+                    }
+                    else {
+                        @ViewBag.descordinary
+                    }
+                    
+                </div>
+            
+                <div class="share-@nbPreferencial">
+                    <h4>Preferencial shares</h4>
+                    @if(ViewBag.descpreferencial == null){
+                        <p>
+                            Preference shares, or preferred stock, are shares of a company’s stock with dividends that are paid out to shareholders before common stock dividends are issued. <br>
+                            If the company enters bankruptcy, preferred stock holders are entitled to be paid from company assets before common stockholders. <br>
+                            Most preference shares have a <strong>fixed dividend</strong>, while common stocks generally do not. <br>
+                            Preferred stock shareholders <strong>do not hold any voting rights.</strong>
+                        </p>
+                        <span><a href="https://www.investopedia.com/terms/p/preference-shares.asp" target="_blank">www.investopedia.com</a> By Akhilesh Ganti.  March (2019)</span>
+                    }
+                    else {
+                        @ViewBag.descpreferencial
+                    }
+                    
+                </div>
+
+                <div class="share-@nbNonvoting">
+                    <h4>Non-voting shares</h4>
+                    @if(ViewBag.descnonvoting == null){
+                        <p>
+                            Non-voting shares are shares with no voting right attached to them. Usually no right to attend general meetings <br>
+                            As compensation for giving up their voting rights holders of non voting shares get preferential treatment regarding Dividends: <br>
+                        </p>
+                        <ul>
+                            <li>Fixed Dividend</li>
+                            <li>Increased Dividend compared to ordinary Shareholders</li>
+                        </ul>
+                        
+                    }
+                    else {
+                        @ViewBag.descnonvoting
+                    }
+                </div>
+
+                <div class="share-@nbRedeemable">
+                    <h4>Redeemable shares</h4>
+                    @if(ViewBag.descnonvoting == null){
+                        <p>
+                            Redeemable shares are a type of share that are allowed to be repurchased by the company. <br>
+                            The prices at which it can be repurchase are decided once the project is funded.
+                        </p>
+                        <p>Read more on: <a href="http://www.businessdictionary.com/definition/redeemable-shares.html" target="_blank">www.businessdictionary.com</a> </p>
+                    }
+                    else {
+                        @ViewBag.descredeemable
+                    }
+                    
+                </div>
+
+            </div>
+
+            <div class="col-md-5 donationPanel">
+                <p class="information">Select the number of shares you want to acquire</p>
+                <div class="share-@nbOrdinary">
+                    <h4>Ordinary shares</h4>
+                    <div class="slider-container">
+                        <div class="priceShareOrdinary priceShare">$ <span class="priceS" id="priceOrdinary">0.00</span>
+                        </div>
+                        <input type="range" min="0" max="@nbOrdinary" value="0" class="slider" id="ordinaryRange">
+                        <p class="share-nb">
+                            <span class="pull-left lightgrey">0</span>
+                            <span id="ordinaryValue"></span> shares
+                            <span class="pull-right lightgrey">@nbOrdinary</span>
+                        </p>
+                    </div>
+                    
+                </div>    
+            
+                <div class="share-@nbPreferencial">
+                    <h4>Preferencial shares</h4>
+                    <div class="slider-container">
+                        <div class="priceSharePreferencial priceShare">$ <span class="priceS" id="pricePreferencial">0.00</span>
+                        </div>
+                        <input type="range" min="0" max="@nbPreferencial" value="0" class="slider" id="preferencialRange">
+                        <p class="share-nb">
+                            <span class="pull-left lightgrey">0</span>
+                            <span id="preferencialValue"></span> shares
+                            <span class="pull-right lightgrey">@nbPreferencial</span>
+                        </p>
+                    </div>
+                    
+                </div>
+                
+                <div class="share-@nbNonvoting">
+                    <h4>Non-voting shares</h4>
+                    <div class="slider-container">
+                        <div class="priceShareNonvoting priceShare">$ <span class="priceS" id="priceNonvoting">0.00</span>
+                        </div>
+                        <input type="range" min="0" max="@nbNonvoting" value="0" class="slider" id="nonvotingRange">
+                        <p class="share-nb">
+                            <span class="pull-left lightgrey">0</span>
+                            <span id="nonvotingValue"></span> shares
+                            <span class="pull-right lightgrey">@nbNonvoting</span>
+                        </p>
+                        
+                    </div>
+                    
+                </div>
+            
+                <div class="share-@nbRedeemable">
+                    <h4>Redeemable shares</h4>
+                    <div class="slider-container">
+                        <div class="priceShareRedeemable priceShare">$ <span class="priceS" id="priceRedeemable" >0.00</span>
+                        </div>
+                        <input type="range" min="0" max="@nbRedeemable" value="0" class="slider" id="redeemableRange">
+                        <p class="share-nb">
+                            <span class="pull-left lightgrey">0</span>
+                            <span id="redeemableValue"></span> shares
+                            <span class="pull-right lightgrey">@nbRedeemable</span>
+                        </p>    
+                        
+                    </div>
+                    
+                </div>
+
+                <div class="form-group">
+                    <p>Please enter your Paypal email for future refund</p>
+                    <input type="email" id="txtPaymentEmail" class="form-control" required/>
+                    <span class="paypalEmailError error">Please enter an email</span>
+                </div>
+
+                <p class="total-amount"> 
+                    <span class="pull-left">Total</span>
+                        $ <span id="totalPrice">0.00</span>
+                </p>
+
+                <div class="donation-form">
+                    <form asp-controller="project" asp-action="CreatePayment" enctype = "multipart/form-data">
+                        <div style="display:none;">
+                            @Html.TextBoxFor(model => model.id, new{@id="projectId"})
+                            <input type="hidden" id="paymentEmail" name="paymentEmail"/>
+                            <input type="hidden" id="subOrdinary"  name="subOrdinary"/>
+                            <input type="hidden" id="subPreferencial"  name="subPreferencial"/>
+                            <input type="hidden" id="subNonvoting"  name="subNonvoting"/>
+                            <input type="hidden" id="subRedeemable"  name="subRedeemable"/>
+                            <input type="text" id="tempTotalPrice" name="tempTotalPrice"/>
+                            
+                        </div>
+                        <div class="btn btn-donate">
+                            <img src="~/images/paypal-logo.png">
+                            <input type="submit" value="" disabled id="inputDonate"/>
+                        </div>
+                    
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+          
+        <!-- related projects -->
+        <script>
+            $(function(){
+                var listProject = @(Html.Raw(ViewBag.listProject));
+
+                relatedCategory(listProject, @Html.DisplayFor(model => model.fkcategory.id), "@Html.DisplayFor(model => model.projectname)");    
+            });
+        </script> 
+        
+        <h3>Related projects</h3>
+        <div id="relatedProjects">
+        </div>
+            
+    </div>
+</section>
+

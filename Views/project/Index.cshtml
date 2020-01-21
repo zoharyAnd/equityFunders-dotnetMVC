@@ -1,0 +1,121 @@
+@model IEnumerable<cFunding.Models.project>
+@using cfunding.Services;
+@using Newtonsoft.Json;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2  class="pageTitle">All projects</h2>
+
+<script>
+    $(function(){
+        $('#filterError').hide();
+        var listProject = @(Html.Raw(ViewBag.listProject));
+        var listCategory = @(Html.Raw(ViewBag.listCategory));
+        
+        ddlCategory(listCategory);
+        filterbyName(listProject);
+        filterbyCategory(listProject)
+        filterbyAmount(listProject);
+    
+    });
+</script> 
+
+<section>
+    <div class="container">
+        <!-- advanced search -->
+        <div class="row dfxWrap advancedSearch">
+            <div class="col-sm-3 dflexColumn">
+                <label>Project name</label>
+                <input type="text" placeholder="Project name" id="txtSearchPName"/>
+            </div>
+            <div class="col-sm-3 dflexColumn">
+                <label>Category</label>
+                <select id="homeCategory" class="search-item">
+                    <option>--- Select a category ---</option>
+                </select>
+            </div>
+            <div class="col-sm-3 dflexColumn">
+                <label>Amount to raise </label>
+                <select id="homeAmount" class="search-item">
+                    <option>--- Select an amount ---</option>
+                    <option value="1">$ 1 to $ 500</option>
+                    <option value="2">$ 501 to $ 1000</option>
+                    <option value="3">$ 1001 to $ 2000</option>
+                    <option value="4">$ 2001 and more</option>
+                </select>
+            </div>
+            <div class="col-sm-3 dflexColumn">
+                <label>Closing Date</label>
+                <input type="date">
+            </div>
+        </div>
+
+        <div  id="filterError" class="row card-wrapper-scroll">
+            <div class="col-sm-12 flashError">No match found
+                <button type="button" class="pull-right" onclick="hideFilterError()">
+                    <span aria-hidden="true" >&times;</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="filterAll" class="row card-wrapper-scroll"> 
+            <div class="col-sm-12  dfxWrap">
+                @foreach (var item in Model){
+                    var fav = "";
+                    if(ViewBag.listFavs == null){}
+                    else {
+                        var listFavs = JsonConvert.DeserializeObject<List<String>>(@ViewBag.listFavs );
+                        foreach (var itemF in listFavs)
+                        {
+                            if(Convert.ToInt32(itemF) == item.id){
+                                fav = "starred";
+                            }
+                        }
+                    }
+                    <div class="card">
+                        <div class="card-header @fav">
+                            <img src="@item.projectimage1" alt="projectimage" class="card-img-top img-responsive"/>
+                            <span class="card-date">
+                                closing on @globalMethods.formattedDate(item.projectclosingdate)
+                            </span>
+
+                            <form asp-controller="Home" asp-action="createFavorite" id="favorite-form">
+                                <input type="hidden" name="fkproject" value="@item.id" />
+                                <div>
+                                    @if(ViewBag.userid == null) {}
+                                    else {
+                                        <input type="submit" value="Add">	
+                                    }
+                                    
+                                </div>
+                            </form>
+                        </div>
+                        <a asp-controller="project" asp-action="Details" asp-route-id="@item.id" class="card-anchor-container">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    @globalMethods.trimTitle(item)
+                                </h3>
+                                <p class="card-text"> >@Html.Raw(globalMethods.trimDescription(item))</p>
+                                <p class="category-tag">@item.fkcategory.categoryname</p>
+                                
+                                <span class="pull-left meta-card">$ @item.projectamountraised raised of  $ @item.projectamounttoraise </span> 
+
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: @globalMethods.percentRange(item)" aria-valuenow="25" aria-valuemin="0"  aria-valuemax="100"></div>
+                                </div>
+
+                                <span class="pull-right meta-card">@globalMethods.percentRaised(item) % funded </span>
+                            
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+
+         <div id="resultFilter" class="row dfxWrap card-wrapper-scroll"></div>
+        
+    </div>
+</section>

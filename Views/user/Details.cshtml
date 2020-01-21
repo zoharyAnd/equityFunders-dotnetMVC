@@ -1,0 +1,257 @@
+@model cFunding.Models.user
+@using cfunding.Services;
+@using Newtonsoft.Json;
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<section class="section-user-detail">
+    <div class="container-fluid">
+        
+        <div class="social-share-wrapper">
+            @if(ViewBag.userid == null || ViewBag.anotherUser == "true"){}
+            else {
+                <div class="social-block pencil"><a a asp-action="Edit" asp-route-id="@Model.id" ><i class="fa fa-pencil"></i></a></div>
+            }
+            <div class="social-block facebook"><a><i class="fa fa-facebook"></i></a></div>
+            <div class="social-block twitter"><a><i class="fa fa-twitter"></i></a></div>
+            <div class="social-block linkedin"><a><i class="fa fa-linkedin"></i></a></div>
+            <div class="social-block download"><a><i class="fa fa-cloud-download"></i></a></div>
+        </div>
+        @Html.TextBoxFor(model => model.userdob, "{0:MM/dd/yyyy}", new{@id="lbldob", @style="display:none;"})
+        <script>
+            $(function(){
+                var strDob = $('#lbldob').val();
+                $('#age').html(computeAge(strDob));
+            });
+        </script>
+        
+        <div class="row bannerUserDetails">
+            <div class="userphoto-wrapper">
+                <img src="/@Html.DisplayFor(model => model.userphoto)" class="rounded-img"/>
+            </div>
+            <h3 class="fbold">@Html.DisplayFor(model => model.userfname) @Html.DisplayFor(model => model.userlname) </h3>
+
+            <h4>@Html.DisplayFor(model => model.useremail)</h4>
+            <h4>@Html.DisplayFor(model => model.useraddress) ,  @Html.DisplayFor(model => model.usercountry)</h4>
+
+            <h4 id="age"></h4>
+            
+            <br><p>Representing</p> 
+            
+            <div class="logo-container">
+                <div class="img-logo-wrapper">
+                    <img src="/@Html.DisplayFor(model => model.companylogo)"/>
+                </div>
+                <span>@Html.DisplayFor(model => model.companyname) Co.</span>
+            </div>
+        </div>
+    </div>
+ </section>
+ 
+ <section class="section-share-user-detail">
+    <div class="container">
+        <h3>Company Description</h3>
+        <div>
+            @Model.companydescription
+        </div>
+        
+        <h3>Share structure</h3>
+        
+        <fieldset>
+            <legend>
+                <h5>Ordinary shares</h5>
+                <p>
+                    <span>@Model.nbshareordinary</span> shares at a $ 
+                    <span>@Model.sharevalueordinary</span> share value
+                </p>
+            </legend>
+
+            <p>Description</p>
+             @if(Model.descordinary == null){
+                <p>
+                    Ordinary shares, or common shares, represent the basic voting shares. <br>
+                    Holders of ordinary shares are entitled to: 
+                </p>
+                <ul>
+                    <li>1 vote per share</li>
+                    <li>No predetermined dividend amounts</li>
+                </ul>
+                <p>
+                    Its an equity ownership proportionally with all other ordinary shareholders, according to their percentage of ownership in the company.
+                </p>
+                <span><a href="https://www.investopedia.com/terms/o/ordinaryshares.asp" target="_blank">www.investopedia.com</a> By Akhilesh Ganti.  March (2019)</span>
+            }
+            else {
+                @Model.descordinary
+            }
+            
+            @if(Model.additionalordinary == null){}
+            else {
+                <p>Additional returns</p>
+                <span id="tagsOrdinary" style="display:none;">
+                    @Model.additionalordinary 
+                </span>
+
+                <ul id="ulOrdinary" class="ultags"></ul>
+                <script> 
+                    transformTags($('#tagsOrdinary'), $('#ulOrdinary'));
+                </script>
+            }
+        </fieldset>
+        
+        
+        <fieldset>
+            <legend>
+                <h5>Preferencial shares </h5>
+                <p>
+                    <span>@Model.nbsharepreferencial</span> shares at a $ <span>@Model.sharevaluepreferencial</span> share value
+                </p>
+            </legend>
+
+            <p>Description</p>
+            @if(Model.descpreferencial == null){
+                <p>
+                    Preference shares, or preferred stock, are shares of a company’s stock with dividends that are paid out to shareholders before common stock dividends are issued. <br>
+                    If the company enters bankruptcy, preferred stock holders are entitled to be paid from company assets before common stockholders. <br>
+                    Most preference shares have a <strong>fixed dividend</strong>, while common stocks generally do not. <br>
+                    Preferred stock shareholders <strong>do not hold any voting rights.</strong>
+                </p>
+                <span><a href="https://www.investopedia.com/terms/p/preference-shares.asp" target="_blank">www.investopedia.com</a> By Akhilesh Ganti.  March (2019)</span>
+            }
+            else {
+                @Model.descpreferencial
+            }
+            
+            @if(@Model.additionalpreferencial == null){}
+            else {
+                <p>Additional returns</p>
+                <span id="tagsPreferencial" style="display:none;">
+                    @Model.additionalpreferencial
+                </span>
+
+                <ul id="ulPreferencial" class="ultags"></ul>
+                <script>
+                    transformTags($('#tagsPreferencial'), $('#ulPreferencial'));
+                </script>
+            }
+            
+        </fieldset>
+            
+          
+        <fieldset>
+            <legend>
+                <h5>Non-voting shares</h5>
+                <p>
+                    <span>@Model.nbsharenonvoting</span> shares at a $ 
+                    <span id="pShareValueNonvoting"> @Model.sharevaluenonvoting</span> share value
+                </p>
+            </legend>
+
+            <p>Description</p>
+            @if(Model.descnonvoting == null){
+                <p>
+                    Non-voting shares are shares with no voting right attached to them. Usually no right to attend general meetings <br>
+                    As compensation for giving up their voting rights holders of non voting shares get preferential treatment regarding Dividends: <br>
+                </p>
+                <ul>
+                    <li>Fixed Dividend</li>
+                    <li>Increased Dividend compared to ordinary Shareholders</li>
+                </ul>
+                
+            }
+            else {
+                @Model.descnonvoting
+            }
+            
+            @if(Model.additionalnonvoting == null){}
+            else{
+                <p>Additional returns</p>
+                <span id="tagsNonvoting" style="display:none;">     
+                    @Model.additionalnonvoting
+                </span>
+                
+                <ul id="ulNonvoting" class="ultags"></ul>
+                <script>
+                    transformTags($('#tagsNonvoting'), $('#ulNonvoting'));
+                </script>
+            }
+            
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                <h5>Redeemable shares</h5>
+                <p>
+                    <span>@Model.nbshareredeemable</span> shares at a $ 
+                    <span>@Model.sharevalueredeemable</span> share value
+                </p>
+            </legend>
+
+            <p>Description</p>
+            @if(Model.descnonvoting == null){
+                <p>
+                    Redeemable shares are a type of share that are allowed to be repurchased by the company. <br>
+                    The prices at which it can be repurchase are decided once the project is funded.
+                </p>
+                <p>Read more on: <a href="http://www.businessdictionary.com/definition/redeemable-shares.html" target="_blank">www.businessdictionary.com</a> </p>
+            }
+            else {
+                @Model.descredeemable
+            }
+            
+            @if(Model.additionalredeemable == null){}
+            else{
+                <p>Additional returns</p>
+                <span id="tagsRedeemable" style="display:none;">
+                    @Model.additionalredeemable
+                </span>
+                
+                <ul id="ulRedeemable" class="ultags"></ul>
+                <script>
+                    transformTags($('#tagsRedeemable'), $('#ulRedeemable'));
+                </script>
+            }
+
+        </fieldset>
+
+
+        <div class="published-projects">
+            <h3>Published Projects</h3>
+            @{
+                var listPublishedProjects = JsonConvert.DeserializeObject<List<project>>(@ViewBag.listPublishedProjects);
+                var pageOwner = @ViewBag.pageOwner;
+
+                foreach( var publishedP in listPublishedProjects){
+                    <a asp-controller="project" asp-action="Details" asp-route-id="@publishedP.id" class="card-anchor-container">
+                        <div class="card small-card">
+                            <div class="card-header" style="background: url('../../@publishedP.projectimage1');background-size: cover;">
+                                <span class="card-date">
+                                    closing on @globalMethods.formattedDate(publishedP.projectclosingdate)
+                                </span>
+                                <div class="card-title">
+                                    <h3>@globalMethods.trimTitle(publishedP)</h3>
+                                    <p class="category-tag">@publishedP.fkcategory.categoryname</p>
+                                    
+                                    <p>$ @publishedP.projectamountraised raised of  $ @publishedP.projectamounttoraise </p>
+                                    
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: @globalMethods.percentRange(publishedP)" aria-valuemin="0"  aria-valuemax="100"></div>
+                                    <div class="card-meta">
+                                        <span>@globalMethods.percentRaised(publishedP) % funded </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a >
+                }
+                
+            }
+
+        </div>
+    </div>
+</section>
+
+

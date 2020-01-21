@@ -1,0 +1,38 @@
+﻿@model IEnumerable<cFunding.Models.favorite>
+
+@{
+    ViewData["Title"] = "Favorite | Home";
+}
+
+<h2 class="pageTitle">Favorites</h2>
+<section class="section-favorite">
+    <div class="container">
+        @if(@ViewBag.userid != null){
+            @foreach (var item in Model) {
+                
+                    <div class="row widget">
+                        <div class="col-sm-4 col-widget favorite-img">
+                            <img src="@item.fkproject.projectimage1"/>
+                        </div>
+                        <div class="col-sm-6 col-widget">
+                            <a asp-controller="project" asp-action="Details" asp-route-id="@item.fkproject.id" class="card-anchor-container">
+                            <h4>
+                                @Html.DisplayFor(model => item.fkproject.projectname)
+                            </h4>
+                            </a>
+                        </div>
+
+                        <div class="col-sm-2 col-widget td-icons">
+                            <a asp-controller="project" asp-action="Details" asp-route-id="@item.fkproject.id"  target="_blank" class="toolT"><i class="fa fa-info-circle"><span class="toolTText">details</span></i></a>
+
+                            <a asp-action="Delete" asp-controller="favorite" asp-route-id="@item.id" target="_blank" class="toolT"><i class="fa fa-trash"><span class="toolTText">delete</span></i></a>
+                        </div>
+                    </div>
+                
+            }
+        }
+        else{
+            <p>You have no favorite projects yet</p>
+        }
+    </div>    
+</section>

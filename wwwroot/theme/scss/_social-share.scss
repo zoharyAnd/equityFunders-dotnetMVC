@@ -1,0 +1,66 @@
+.social-share-wrapper {
+    position: fixed;
+    top: 32%;
+    right: 0px;
+    z-index: 10;
+    
+    .fa{
+        font-size: 29px;
+    }
+
+    .social-block {
+        width: 70px;
+        height: 70px;
+        
+        a {
+            text-decoration: none;
+            color: white;
+            width: -webkit-fill-available;
+            text-align: center;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+    }
+
+    .pencil {
+        a{
+            background-color: #d30784;
+        }
+    }
+    .facebook {
+        background-color: #395794;
+        a{
+            background-color: #395794;
+        }
+    }
+    .twitter {
+        background-color: #31C7F6;
+        a{
+            background-color: #31C7F6;
+        }
+        
+    }
+    .linkedin {
+        background-color: #0078B1;
+        a {
+            background-color: #0078B1;
+        }
+    }
+    .download {
+        background-color: green;
+        a {
+            background-color: green;
+        }
+    }
+
+    @include below($sm) {
+        display: none;
+    }
+}

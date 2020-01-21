@@ -1,0 +1,50 @@
+@model cFunding.Models.transaction
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>category</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="text" class="form-control" name="fkproject"/>
+            <input type="text" class="form-control" name="fkuser"/>
+
+            <div class="form-group">
+                <label asp-for="amount" class="control-label">Amount</label>
+                <input asp-for="amount" class="form-control" />
+                <span asp-validation-for="amount" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="transactiondate" class="control-label">Date</label>
+                <input asp-for="transactiondate" class="form-control" />
+                <span asp-validation-for="transactiondate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="accountemail" class="control-label">Amount</label>
+                <input type="email" asp-for="accountemail" class="form-control" />
+                <span asp-validation-for="accountemail" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

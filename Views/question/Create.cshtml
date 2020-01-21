@@ -1,0 +1,33 @@
+﻿@model cFunding.Models.question
+
+@{
+    ViewData["Title"] = "Question | Create";
+}
+
+<!-- question -->
+<section class="section-question" id="section-question">
+    <div class="container">
+        <h2 class="tcenter">Question</h2>
+        <form  asp-action="Create" enctype="multipart/form-data" id="question-form">
+            
+            <div class="form-group">
+                <label asp-for="questiondate" class="control-label">Question date</label>
+                <input asp-for="questiondate" class="form-control" 
+                        id="questiondate" name="questiondate"/>
+                <span asp-validation-for="questiondate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="questionmessage" class="control-label">Question message</label>
+                <input asp-for="questionmessage" class="form-control" 
+                        id="questionmessage" name="questionmessage"/>
+                <span asp-validation-for="questionmessage" class="text-danger"></span>
+            </div>
+            
+            <div>
+                <input type="submit" class="btn" value="Send Question"/>
+            </div>
+            
+        </form>
+    </div>
+</section>

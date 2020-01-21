@@ -1,0 +1,61 @@
+@model IEnumerable<cFunding.Models.user>
+@{
+    Layout="~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    ViewData["Title"] = " Manage Users";
+}
+<!--------------- Manage users  ------------->
+
+<h2>Manage Users</h2>    
+
+<div class="row">
+    <div class="col-md-12 widget admin-user-data">
+        <h4>User data</h4>
+                    
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Company</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        <div class="td-img-wrapper">
+                            <img src="/@item.userphoto" alt="user photo" class="rounded-img"/>
+                        </div>
+                        <p>@Html.DisplayFor(modelItem => item.username)</p>
+                        <p>@Html.DisplayFor(modelItem => item.useremail)</p>
+                    </td>
+                    <td>
+                        <div class="td-img-wrapper">
+                            <img src="/@item.companylogo" alt="company logo"/>
+                        </div>
+                        <p>@Html.DisplayFor(modelItem => item.companyname)</p>
+                    </td>
+                    <td class="td-icons">
+                        @if (item.validatedUser)
+                        {
+                            <p class="p-validated">Validated user</p>
+                            <a asp-action="BlockUser"asp-route-id="@item.id" class="toolT"><p class="p-block">Block<span class="toolTText">Block user</span></p></a>
+                        }
+                        else
+                        {
+                            <a asp-action="ValidateUser"asp-route-id="@item.id" class="toolT"><p class="p-validate">Validate<span class="toolTText">validate</span></p></a>
+                        }
+                        
+                        <a asp-action="Details" asp-route-id="@item.id" target="_blank" class="toolT"><i class="fa fa-info-circle"><span class="toolTText">details</span></i></a>
+
+                        <a asp-action="Delete" asp-controller="user" asp-route-id="@item.id" target="_blank" class="toolT"><i class="fa fa-trash"><span class="toolTText">delete</span></i></a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>        
+    </div>
+
+</div>

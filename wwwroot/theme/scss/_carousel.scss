@@ -1,0 +1,224 @@
+.section-carousel {
+    height: 500px;
+    #slide-carousel {
+        height: 100%;
+    }
+}
+
+.carousel-inner {
+    height: 100%;
+    .item {
+        position: relative;
+        height: 100%;
+        width: auto;
+
+        img {
+            min-height: 100%;
+            width: 100%;
+            height: auto;
+        }
+        .item-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            z-index: 1;
+
+            h1 {
+                font-weight: bold;
+                @include below($mobile-small) {
+                    font-size: 20px;
+                }
+            }
+
+            h3 {
+                @include below($mobile-small) {
+                    font-size: 16px;
+                }
+            }
+        }
+        &::after {
+            content:"";
+            position:absolute;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+            margin:auto;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.5);
+            z-index:0;
+        }
+
+        .btn-success {
+            text-transform: capitalize;
+            font-size: 18px;
+            letter-spacing: 1px;
+            
+            a {
+                color: white;
+            }
+
+            @include below($mobile-small) {
+                font-size: 13px;
+                padding: 8px 10px;
+            }
+        }
+    }
+
+}
+
+.section-carousel-community {
+    height: 426px;
+    background-color: #f3f3f3;
+    padding-top: 14px;
+    margin: 8px 0px 31px 0px;
+    padding-bottom: 25px;
+
+    h1 {
+        margin-top: 30px;
+    }
+}
+#community-carousel {
+    height: 300px;
+    position: relative;
+
+    
+
+    ol {
+        position: absolute;
+        bottom: -30px;
+        li {
+            background-color: #6a6a6b;
+        }
+    }
+
+    .carousel-indicators {
+        .active {
+            background: #4eb67f;
+        }
+    }
+
+    .carousel-control.right, .carousel-control.left {
+        background-image: none;
+    }
+
+    .glyphicon-chevron-right:before, .glyphicon-chevron-left:before {
+        color: #847d7d;
+    }
+}
+
+.carousel-indicators {
+    li {
+        background-color:#a9a9a9;
+        border: none;
+    }
+    .active {
+        background: #4eb67f;
+        border: 0px;
+    }
+}
+
+/*fade effect on carousel*/
+.carousel-fade .carousel-inner .item {
+    -webkit-transition-property: opacity;
+            transition-property: opacity;
+  }
+  .carousel-fade .carousel-inner .item,
+  .carousel-fade .carousel-inner .active.left,
+  .carousel-fade .carousel-inner .active.right {
+    opacity: 0.7;
+  }
+  .carousel-fade .carousel-inner .active,
+  .carousel-fade .carousel-inner .next.left,
+  .carousel-fade .carousel-inner .prev.right {
+    opacity: 1;
+  }
+  .carousel-fade .carousel-inner .next,
+  .carousel-fade .carousel-inner .prev,
+  .carousel-fade .carousel-inner .active.left,
+  .carousel-fade .carousel-inner .active.right {
+    left: 0;
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+
+.community-slick {
+    h3 {
+        font-weight: bold;
+        margin-bottom: 0px;
+        color: #6a6a6b;
+    }
+
+    p {
+        font-size: 18px;
+        color: #969696;
+    }
+
+    .img-community-wrapper {
+        width: 200px;
+        height: 200px;
+        overflow: hidden;
+        border-radius: 50%;
+        margin: 0 auto;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+}
+
+.slick-slide {
+    text-align: center;
+}
+
+.slick-prev,
+.slick-next {
+    font-size: 0;
+    line-height: 0;
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding: 0 50px;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    cursor: pointer;
+    color: transparent;
+    border: none;
+    outline: none;
+    
+
+    &:before {
+        font-family: 'slick';
+        font-size: 20px;
+        line-height: 1;
+        opacity: .75;
+        color: white;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+.slick-prev {
+    left: -25px;
+
+    &:before {
+        content: '←';
+    }
+}
+
+.slick-next {
+    right: -25px;
+    
+    &:before {
+        content: '→';
+    }
+}

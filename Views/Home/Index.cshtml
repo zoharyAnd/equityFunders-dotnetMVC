@@ -1,0 +1,286 @@
+﻿@model IEnumerable<cFunding.Models.project>
+@using cfunding.Services;
+@using Newtonsoft.Json;
+
+@{
+    ViewData["Title"] = "| Home";
+}
+
+<!-- banner top -->
+<section class="section-carousel">
+    <div id="slide-carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="10000">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#slide-carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#slide-carousel" data-slide-to="1"></li>
+            <li data-target="#slide-carousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="images/slider-1.jpeg" alt="slide1" >
+                <div class="item-content ">
+                    <h1>Bring your ideas to reality</h1>
+                    <h3>Realise your dream projects with amazing backers.</h3>
+                    <button class="btn-success" >
+                        <a href="#" data-toggle="modal" data-target="#registerModal">
+                            Sign up to start the journey
+                        </a>
+                        </button>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="images/slider-2.jpeg" alt="slide2" >
+                <div class="item-content ">
+                    <h1>Invest and support promising talents</h1>
+                    <h3>Back projects that inspires you and benefit from its success.</h3>
+                    <button class="btn-success">
+                        <a href="~/#section-projects-home">
+                            Explore projects
+                        </a>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="item">
+                <img src="images/slider-3.jpg" alt="slide3" >
+                <div class="item-content ">
+                    <h1>Build a rich network <br> of trust and prosperity</h1>
+                    <h3>Expand your business strength and find your future partners.</h3>
+                    <button class="btn-success" >
+                        <a href="~/#load-more">
+                            Discover the community
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#slide-carousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#slide-carousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</section>
+
+<!-- project cards -->
+<section id="section-projects-home">
+    <div class="container">
+        <h1 class="tcenter fbold">Projects</h1>
+        <div class="row card-container">
+            <div class="col-sm-12  dfxWrap">
+                @foreach (var item in Model){
+                    var fav = "";
+                    if(ViewBag.listFavs == null){}
+                    else {
+                        var listFavs = JsonConvert.DeserializeObject<List<String>>(@ViewBag.listFavs );
+                        foreach (var itemF in listFavs)
+                        {
+                            if(Convert.ToInt32(itemF) == item.id){
+                                fav = "starred";
+                            }
+                        }
+                    }
+                    <div class="card">
+                        <div class="card-header @fav">
+                            <img src="@item.projectimage1" alt="projectimage" class="card-img-top img-responsive"/>
+                            <span class="card-date">
+                                closing on @globalMethods.formattedDate(item.projectclosingdate)
+                            </span>
+
+                            <form asp-action="createFavorite">
+                                <input type="hidden" name="fkproject" value="@item.id" />
+                                <div>
+                                    @if(ViewBag.userid == null || ViewBag.validatedUser == "False") {}
+                                    else {
+                                        <input type="submit" value="Add">	
+                                    }
+                                    
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-body">
+                            <a asp-controller="project" asp-action="Details" asp-route-id="@item.id" class="card-anchor-container">
+                                <h3 class="card-title">
+                                    @globalMethods.trimTitle(item)
+                                </h3>
+                                <p class="card-text"> @globalMethods.trimDescription(item) </p>
+                                <p class="category-tag">@item.fkcategory.categoryname</p>
+                                
+                                <span class="pull-left meta-card">$ @item.projectamountraised raised of  $ @item.projectamounttoraise </span> 
+
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: @globalMethods.percentRange(item)" aria-valuenow="25" aria-valuemin="0"  aria-valuemax="100"></div>
+                                </div>
+
+                                <span class="pull-right meta-card">@globalMethods.percentRaised(item) % funded </span>
+                            </a>
+                        </div>
+                        
+                    </div>
+                }
+            </div>
+        </div>
+        <div id="load-more" class="row load-more">
+            <div class="col-sm-12">
+                <a id="btnLoadMore">Load more</a>
+                <a id="btnViewAllP" asp-controller="project" asp-action="Index" style="display:none;">View all projects</a>
+            </div>
+        </div>
+    </div> <!-- end container -->
+</section>
+
+<!-- community section-->
+<section class="section-carousel section-carousel-community">
+    <h1 class="tcenter fbold">The Community</h1>
+    <div class="community-slick">
+        @foreach (var itemP in Model)
+            {
+                <div>
+                    <a asp-controller="user" asp-action="Details" asp-route-id="@itemP.fkuser.id" class="card-anchor-container">
+                        <div class="img-community-wrapper">
+                            <img src="@itemP.fkuser.userphoto" />
+                        </div>
+                        <h3>@itemP.fkuser.userfname @itemP.fkuser.userlname</h3>
+                        <p>@itemP.fkuser.usercountry</p>
+                    </a>
+                </div>
+            }
+    </div>
+</section>
+
+<!-- ask questions -->
+<section class="section-ask-questions" id="ask-questions">
+    <div class="container">
+        <h1 class="tcenter fbold">Ask Questions</h1>
+        <form  action="~/question/Create" method="post" id="ask-questions-form">
+            <div class="ask-questions">
+                <textarea type="text" placeholder="Type your question here ..." class="form-control" name="questionmessage"></textarea>
+                
+                @if(ViewBag.validatedUser == "True") 
+                {
+                    <input type="submit" Value="Ask Questions" class="btn" />
+                }
+                else{
+                    <a href="#" data-toggle="modal" data-target="#loginModal" class="btn" >Ask Questions</a>
+                }
+            </div>
+        </form>
+
+        <div class="ask-questions-history">
+            @{
+                var listQuestion = JsonConvert.DeserializeObject<List<question>>(@ViewBag.listQuestion);
+                var listAnswer = JsonConvert.DeserializeObject<List<answer>>(@ViewBag.listAnswer);
+                var userid = @ViewBag.userid;
+
+                foreach( var question in listQuestion){
+                    @if(question.validatedQuestion)
+                    {
+                        <div class="question">
+                        <h4>@question.fkuser.username</h4>
+                        <span class="question-date">on @globalMethods.formattedDate(question.questiondate)</span>
+                        <p class="p-question">@question.questionmessage</p> 
+                        
+                        <div id="question@question.id">
+                            @foreach(var answer in listAnswer){
+                                @if(@question.id == @answer.fkquestion.id) {
+                                    @if(answer.validatedAnswer)
+                                    {
+                                    <div class="answer">
+                                        <h4>@answer.fkuser.username</h4>
+                                        <span class="question-date">on @globalMethods.formattedDate(answer.answerdate)</span>
+                                        <p>@answer.answermessage</p>
+                                    </div>
+                                    }
+                                }
+                            }
+                        </div>
+                        @if(@userid != null){
+                            <form asp-action="createAnswer" enctype="multipart/form-data" class="answer-form">
+                                <input type="hidden" name="fkquestion" value="@question.id" />
+                                <input type="hidden" name="fkuser" value="@ViewBag.userid" />
+                                <textarea name="answermessage" class="form-control">Type your answer here...</textarea>
+                                
+                                  @if(ViewBag.validatedUser == "True") 
+                                    {
+                                        <input type="submit" Value="Reply" class="btn" />
+                                    }
+                                    else{
+                                        <a href="#" data-toggle="modal" data-target="#loginModal" class="btn" >Reply</a>
+                                    }
+                            </form>
+                        }
+                    </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+</section>
+
+<!-- contact us -->
+<section class="section-contact" id="contact-us">
+    <div class="container">
+        <h1 class="tcenter fbold">Contact Us</h1>
+        <form  asp-action="createContactus" id="contact-form">
+            <input type="hidden" id="contact-user-id"  value="@ViewBag.userid"/>
+            <div class="form-group">
+                <label for="sendername" class="control-label">Name</label>
+                <input class="form-control" id="sendername" name="sendername"/>
+            </div>
+            <div class="form-group">
+                <label for="senderemail" class="control-label">Email</label>
+                <input class="form-control" id="senderemail" name="senderemail"/>
+            </div>
+            <div class="form-group">
+                <label for="mailsubject" class="control-label">Subject</label>
+                <input class="form-control" id="mailsubject" name="mailsubject"/>
+            </div>
+            <div class="form-group">
+                <label for="mailmessage" class="control-label">Message</label>
+                <textarea class="form-control" id="mailmessage" name="mailmessage"></textarea>
+            </div>
+            <div class="contact-btn-wrapper">
+                @if(ViewBag.validatedUser == "True") 
+                {
+                    <input type="submit" class="btn" value="Send Message"/>
+                }
+                else{
+                    <a href="#" data-toggle="modal" data-target="#loginModal" class="btn" >Send Message</a>
+                } 
+                
+            </div>
+        </form>
+    </div>
+</section>
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2 navbar-header">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index"></a>
+            </div>
+            <div class="col-sm-3">
+                <ul>
+                    <li><a>Projects</a></li>
+                    <li><a>FAQ</a></li>
+                    <li><a>Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-7 credits">
+                <p>&copy; 2019 </p>
+                <p>Developed by Andrianome Riana and Andrianome Zohary</p>
+                <p>All rights reserved</p>
+            </div>
+        </div>
+        
+    </div>        
+</footer>

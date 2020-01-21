@@ -1,0 +1,44 @@
+.section-favorite {
+    a {
+        text-decoration: none;
+        color: black;
+    }
+    .widget {
+        height: 200px;
+        margin: 30px 0px;
+        padding: 0px;
+
+        .col-widget {
+            padding: 0px;
+
+            &:nth-child(2), &:nth-child(3){
+                display: flex;
+                align-items: center;
+                height: 100%;
+                padding: 0px 40px;
+            }
+
+            h3 {
+                margin: 0px;
+            }
+        }
+        .td-icons i {
+            font-size: 30px;
+            margin: 0px 20px;
+        }
+    }
+
+    .favorite-img {
+        overflow: hidden;
+        height: inherit;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    
+    
+
+}

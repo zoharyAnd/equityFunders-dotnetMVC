@@ -1,0 +1,97 @@
+@model IEnumerable<cFunding.Models.project>
+@using cfunding.Services;
+
+@{
+    Layout="~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+    ViewData["Title"] = " Manage Projects";
+}
+<!--------------- Manage Projects   ------------->
+<h2>Manage Projects</h2>
+<div class="widget">
+    <h4>Projects data</h4>
+    <table class="admin-projects-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th colspan="2">Amount</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <th style="text-align:left;">Description</th>
+                <th>To Raise</th>
+                <th>Raised</th>
+                <th>Images</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td class="td-description">
+                        <h5>@Html.DisplayFor(modelItem => item.projectname)</h5>
+                        <p>@Html.Raw(globalMethods.trimDescription(item))</p> 
+                        <p>
+                            <span class="pull-left">
+                                From: @globalMethods.formattedDate(item.projectcreationdate) 
+                            </span>
+                            <span class="pull-right">
+                                To: @globalMethods.formattedDate(item.projectclosingdate) 
+                            </span>
+                        </p>
+                    </td>
+                    <td class="td-amount"> $ @Html.DisplayFor(modelItem => item.projectamounttoraise) </td>
+                    <td class="td-amount"> $ @Html.DisplayFor(modelItem => item.projectamountraised) </td>
+                    <td class="td-img">
+                        <div class="td-img-wrapper">
+                            <div class="img-container">
+                                <img src="/@item.projectimage1" alt="pj img 1" />
+                            </div>
+                            <div class="img-container">
+                                <img src="/@item.projectimage2" alt="pj img 2" />
+                            </div>
+                        </div>
+                        <div class="td-img-wrapper">
+                            <div class="img-container">
+                                <img src="/@item.projectimage3" alt="pj img 3" />
+                            </div>
+                            <div class="img-container">
+                                <img src="/@item.projectimage4" alt="pj img 4" />
+                            </div>
+                        </div>
+                    </td>
+                    <script>
+                        $(function () {
+                            $('[data-toggle="tooltip"]').tooltip();
+                        })
+
+                    </script>
+                    <td class="td-icons">
+                        @if (item.validatedProject)
+                        {
+                            <p class="p-validated">Validated project</p>
+                            <a asp-action="BlockProject" asp-controller="project" asp-route-id="@item.id" class="toolT"><p class="p-block">Block<span class="toolTText">Block project</span></p></a>
+                        }
+                        else
+                        {
+                            <a asp-action="ValidateProject" asp-controller="project" asp-route-id="@item.id" class="toolT"><p class="p-validate">Validate<span class="toolTText">validate</span></p></a>
+                        }
+                        
+                        <a asp-action="Details" asp-route-id="@item.id" target="_blank" class="toolT"><i class="fa fa-info-circle"><span class="toolTText">details</span></i></a>
+
+                        <a asp-action="Delete" asp-controller="project" asp-route-id="@item.id" target="_blank" class="toolT"><i class="fa fa-trash"><span class="toolTText">delete</span></i></a>
+                        
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>        
+</div>
+
+
+

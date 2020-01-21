@@ -1,0 +1,47 @@
+﻿@model cFunding.Models.answer
+
+@{
+    ViewData["Title"] = "Answer | Create";
+}
+
+<!-- answer -->
+<section class="section-answer" id="section-answer">
+    <div class="container">
+        <h2 class="tcenter">Answer</h2>
+        <form  asp-action="Create" enctype="multipart/form-data" id="answer-form">
+            
+            <div class="form-group">
+                <label asp-for="fkquestion" class="control-label">question id</label>
+                <input asp-for="fkquestion" class="form-control" 
+                        id="fkquestion" name="fkquestion"/>
+                <span asp-validation-for="fkquestion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="fkuser" class="control-label">user id</label>
+                <input asp-for="fkuser" class="form-control" 
+                        id="fkuser" name="fkuser"/>
+                <span asp-validation-for="fkuser" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="answermessage" class="control-label">Answer message</label>
+                <input asp-for="answermessage" class="form-control" 
+                        id="answermessage" name="answermessage" />
+                <span asp-validation-for="answermessage" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="answerdate" class="control-label">Answer date</label>
+                <input asp-for="answerdate" class="form-control" 
+                        id="answerdate" name="answerdate" type="date"/>
+                <span asp-validation-for="answerdate" class="text-danger"></span>
+            </div>
+            
+            <div>
+                <input type="submit" class="btn" value="Reply"/>
+            </div>
+
+        </form>
+    </div>
+</section>

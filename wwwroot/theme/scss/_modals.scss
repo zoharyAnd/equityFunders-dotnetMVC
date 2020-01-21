@@ -1,0 +1,20 @@
+.modal-header {
+    text-align: center;
+}
+
+.modal-header-title {
+    margin: 1px;
+}
+
+.modal-content {
+    padding: 20px;
+}
+
+button.close.close-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: #040404;
+    padding: 10px 20px;
+    color: white;
+}

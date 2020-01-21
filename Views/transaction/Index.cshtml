@@ -1,0 +1,59 @@
+@model IEnumerable<cFunding.Models.transaction>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index Transaction</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fkproject.projectname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fkuser.username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.transactiondate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.accountemail)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <th>
+                @Html.DisplayFor(model => item.id)
+            </th>
+            <th>
+                @Html.DisplayFor(model => item.fkproject.projectname)
+            </th>
+            <th>
+                @Html.DisplayFor(model => item.fkuser.username)
+            </th>
+            <th>
+                @Html.DisplayFor(model => item.amount)
+            </th>
+            <th>
+                @Html.DisplayFor(model => item.transactiondate)
+            </th>
+            <th>
+                @Html.DisplayFor(model => item.accountemail)
+            </th>
+        </tr>
+}
+    </tbody>
+</table>

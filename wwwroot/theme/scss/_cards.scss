@@ -1,0 +1,187 @@
+.card-container {
+    margin-bottom: 25px;
+    height: 529px;
+    overflow: hidden;
+}
+
+.card-anchor-container {
+    color: #6a6a6b;
+}
+
+.card {
+    margin: 15px;
+    box-shadow: 3px 4px 8px 11px rgba(0, 0, 0, 0.02), 0 6px 7px 0 rgba(0, 0, 0, 0.2);
+    background-color: white;
+    max-width: 300px;
+    height: 488px;
+    overflow: hidden;
+    position: relative;
+    color: #5d5a5a;
+    font-size: 16px;
+
+    .card-header {
+        height: 225px;
+        position: relative;
+        
+        img {
+            width: auto;
+            height: 100%;
+            min-width: 100%;
+        }
+        .card-date{
+            position: absolute;
+            bottom: 10px;
+            right: 0;
+            background-color: $orange;
+            color: white;
+            padding: 5px;
+            font-size: 12px;
+        }
+        form {
+            padding: 0px;
+        }
+    }
+
+    .favorites {
+        position: absolute;
+        width: 250px;
+        text-align: right;
+
+        .fa{
+            font-size: 35px;
+            color: white;
+            
+            &:hover{
+                color: #263c5a;
+            }
+        }
+    }
+
+    .meta-card {
+        color: #4a4d52;
+        font-weight: bold;
+    }
+
+    .starred {
+        &:before {
+            content: "*";
+            position: absolute;
+            top: -2px;
+            left: 0px;
+            color: white;
+            background-color: #ffd300;
+            font-size: 62px;
+            font-weight: bold;
+            line-height: 62px;
+            width: 41px;
+            height: 41px;
+            padding: 0px 6px;
+        }
+
+        #favorite-form {
+            display: none;
+        }
+    }
+
+    p {
+        @include below($mobile-small){
+            font-size: 14px;
+        }
+    }
+
+}
+
+.card-title {
+    margin-top: 0px;
+    text-transform: capitalize;
+    font-weight: bold;
+
+    @include below($mobile-small) {
+        font-size: 19px;
+    }
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.cardHolder {
+    display: flex;
+
+    input {
+        width: 100%;
+    }
+    
+}
+
+
+.small-card {
+    height: 218px;
+    width: 300px;
+
+    @include below($mobile-small) {
+        width: 250px;
+    }
+    .card-header {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        .progress {
+            position: relative;
+            border-radius: 0px;
+            margin-bottom: -10px; 
+
+            .card-meta {
+                position: absolute;
+                top: 4px;
+                left: 7px;
+            }
+        }
+
+        .card-date {
+            position: absolute;
+            top: 0px;
+            right: 0;
+            height: 25px;
+        }
+
+        .card-title {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            height: 100%;
+            padding-left: 20px;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            h3 { color: white;}
+        }
+    }
+
+
+}
+
+// .card-wrapper-scroll {
+//     height: 493px;
+//     overflow: overlay;
+// }
+
+.project-status {
+    position: absolute;
+    top: 0px;
+    right: 0;
+    padding: 5px 10px;
+    font-weight: bold;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+.published {
+    background-color: #35dc51;
+}
+
+.waiting {
+    background-color: #fbea20;
+}

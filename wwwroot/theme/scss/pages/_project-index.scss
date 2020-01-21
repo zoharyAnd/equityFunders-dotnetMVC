@@ -1,0 +1,27 @@
+.flashError {
+    background-color: #ead9e5;
+    padding: 8px 0;
+    text-align: center;
+    border-radius: 6px;
+
+    button {
+        background: none;
+        border: none;
+        margin: 0 5px;
+    }
+}
+
+.advancedSearch{
+    text-align: center; 
+    display: flex; 
+    margin: 15px;
+    
+    input, select {
+        color: #7b7976;
+        border-radius: 50px;
+        background: transparent;
+        border: 2px solid #dedede;
+        padding-left: 7px;
+        height: 28px;
+    }
+}

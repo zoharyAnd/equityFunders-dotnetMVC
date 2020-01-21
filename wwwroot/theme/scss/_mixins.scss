@@ -1,0 +1,28 @@
+$mobile-small: 320px;
+$mobile-medium: 375px;
+$mobile-large: 425px;
+$xs:576px;
+$sm: 768px;
+$md: 992px;
+$lg-desktop: 1024px;
+$lg: 1200px;
+
+
+
+@mixin below($breakpoint) {
+    @media only screen and (max-width: $breakpoint) {
+        @content;
+    }
+}
+
+@mixin above($breakpoint) {
+    @media only screen and (min-width: $breakpoint) {
+        @content;
+    }
+}
+
+@mixin between($min, $max) {
+    @media all and (min-width: $min) and (max-width: $max) {
+        @content;
+    }
+}

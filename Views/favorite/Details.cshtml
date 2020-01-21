@@ -1,0 +1,26 @@
+﻿@model cFunding.Models.favorite
+
+@{
+    ViewData["Title"] = "Favorite | Details";
+}
+
+
+<section>
+    <table>
+        <thead>
+            <tr>
+                <th>Favorite id</th>
+                <th>user</th>
+                <th>project</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(model => model.id)</td>
+                <td>@Html.DisplayFor(model => model.fkuser.username)</td>
+                <td>@Html.DisplayFor(model => model.fkproject.projectname)</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</section>

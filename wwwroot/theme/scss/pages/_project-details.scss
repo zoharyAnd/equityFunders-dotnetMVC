@@ -1,0 +1,251 @@
+.headBanner {
+    height: 520px;
+    overflow: hidden;
+    position: relative;
+    margin-top: -50px;
+    padding: 0px;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    .progress {
+        position: absolute;
+        bottom: 0;
+        height: 25px;
+        border-radius: 0px;
+
+        label {
+            position: absolute;
+            right: 94px;
+            margin-top: 3px;
+        }
+    }
+
+}
+
+
+
+.headerContent {
+    width: 100%;
+    height: 100%;
+    text-align: right;
+    color: white;
+    padding:0 10%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    h1 {
+        @include below($xs) {
+            font-size: 23px;
+        }
+        @include below($mobile-small) {
+            font-size: 20px;
+        }
+    }
+
+    
+}
+
+.container-project-details {
+    box-shadow: 0 16px 24px 2px rgba(0,0,0,.14), 0 6px 30px 5px rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2);
+    background-color: white;
+    padding: 55px 40px;
+
+    .progress {
+        height: 51px;
+    }
+
+    h3 {
+        color: #0F8B8D;
+        font-weight: bold;
+
+        &:nth-child(1) {
+            margin-top: 15px;
+            margin-bottom: 0px;
+        }
+    }
+
+    h4 {
+        color: #01729a;
+        font-weight: bold;
+        font-size: 16px;
+        margin: 0px;
+    }
+}
+
+
+/*-------- description part -----------------*/
+.p-details-description {
+    p { margin: 7px 0px; } 
+    img {
+        width: 70px;
+        height: 70px;
+        border-radius: 50px;
+        margin: 5px 20px 3px 18px;
+    }
+}
+
+.p-details-motto {
+    margin: 0 -40px;
+    background-color: #f7f7f7;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.p-details-team {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    
+    .p-details-team-member {
+        text-align: center;
+
+        &:nth-child(1){
+            .team-image {
+                border-radius: 50px 0px 0px 0px;
+            }
+        }
+        &:nth-child(4){
+            .team-image {
+                border-radius: 0px 0px 50px 0px;
+            }
+        }
+        .team-image {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+
+            img {
+                width: auto;
+                height: 100%;
+            }
+
+        }
+        
+
+        .team-post {
+            font-weight: bold;
+            margin-bottom: 0px;
+        }
+
+        .team-name {
+            font-style: italic;
+        }
+    }
+    
+
+}
+
+/*------------ donation part ----------------*/
+.share-0 {
+    display: none;
+}
+
+.panel-details {
+    .donationPanel {
+        padding: 30px 15px 40px 40px;
+        color: #353434;
+        background-color: #f7f7f7;
+        max-width: 500px;
+        margin: 0 auto;
+       
+
+        @include below($mobile-small) {
+           padding: 20px 15px 25px 15px;
+        }
+
+
+        .information {
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 30px;    
+        }
+
+        h4 {
+            color: #046865;
+            font-weight: bold;
+        }
+
+        .slider-container {
+            margin: 10px 0px;
+        }
+    }
+
+    .detailsPanel {
+        padding-right: 33px;
+
+        h4 {
+            margin: 20px 0px 5px 0px;
+        }
+    }
+}
+
+
+.priceShare {
+    border: 2px solid #21A0A0;
+    border-radius: 12px;
+    width: 70px;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+}
+
+.total-amount {
+    text-align: right;
+    font-size: 25px;
+    border-top: 3px solid #E53D00;
+    margin-top: 50px;
+    padding-top: 10px;
+    font-family: 'Rajdhani';
+    font-weight: bold;
+}
+
+.donation-form form {
+    padding: 0px;
+}
+
+.share-nb {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.btn-donate {
+    background-color: #F7B801;
+    width: 100%;
+    height: 45px;
+    padding: 0px;
+    position: relative;
+
+    &:hover {
+        background-color: #c79500;
+    }
+
+    img {
+        width: 200px;
+        height: 40px;
+    }
+
+    input[type="submit"] {
+        background: none;
+        border: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/*----------- team ------------------*/
+
+
+#relatedProjects {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto -15px;
+}

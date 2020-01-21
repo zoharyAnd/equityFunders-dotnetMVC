@@ -1,0 +1,292 @@
+@model cFunding.Models.user
+
+@{
+    ViewData["Title"] = "Create";
+}
+<script>
+    function verifyUsername(){
+        var listUser = @(Html.Raw(ViewBag.listUser));
+        var current_username = $('#username').val(); 
+        var count=0; 
+        $.each(listUser, function(key, value) {
+            if(current_username == value.username){
+                count++;       
+            }
+        });
+
+        if(count>0){
+            $('#availableUsername').text("Username not available"); 
+        }
+        else {
+            $('#availableUsername').text(""); 
+        }
+    }
+</script>
+
+<h2 class="pageTitle">Registration</h2>
+<section class="form-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Create" asp-controller="user" enctype = "multipart/form-data" id="registration">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row">
+
+                        <div class="col-sm-4">
+                            <!-- user photo -->
+                            <div class="form-group">
+                                <label asp-for="userphoto" class="control-label">Photo</label>
+                                <input type="file" asp-for="userphoto" class="form-control" 
+                                            id="fileuserphoto" name="fileuserphoto" />
+                                <span asp-validation-for="userphoto" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-8">
+                            <!-- first name -->
+                            <div class="form-group">
+                                <label asp-for="userfname" class="control-label">First Name</label>
+                                <input asp-for="userfname" class="form-control" 
+                                            id="userfname" name="userfname" />
+                                <span asp-validation-for="userfname" class="text-danger"></span>
+                            </div>
+
+                            <!-- last name -->
+                            <div class="form-group">
+                                <label asp-for="userlname" class="control-label">Last Name</label>
+                                <input asp-for="userlname" class="form-control" 
+                                            id="userlname" name="userlname" />
+                                <span asp-validation-for="userlname" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- username -->
+                    <div class="form-group">
+                        <label asp-for="username" class="control-label">Username</label>
+                        <input asp-for="username" class="form-control" 
+                                    id="username" name="username" onchange="verifyUsername()"/>
+                        <span asp-validation-for="username" class="text-danger"></span>
+                        <span class="error" id="availableUsername"></span>
+                    </div>
+
+                    <!-- email -->
+                    <div class="form-group">
+                        <label asp-for="useremail" class="control-label">Email</label>
+                        <input type="email" asp-for="useremail" class="form-control" required 
+                                    id="useremail" name="useremail" />
+                        <span asp-validation-for="useremail" class="text-danger"></span>
+                    </div>
+
+                    <!-- password -->
+                    <div class="form-group">
+                        <label asp-for="userpassword" class="control-label">Password</label>
+                        <input type="password" asp-for="userpassword" class="form-control" 
+                                    id="userpassword" name="userpassword" required/>
+                        <span id="result"></span>
+                    </div>
+
+                    <!-- confirm password -->
+                    <div class="form-group">
+                        <label for="confirmpassword" class="control-label">Confirm password</label>
+                        <input  type="password" class="form-control" 
+                                    id="confirmpassword" name="confirmpassword">
+                        <span asp-validation-for="userpassword" class="text-danger"></span>
+                    </div>
+
+                    <!-- date of birth -->
+                    <div class="form-group">
+                        <label asp-for="userdob" class="control-label">Date of Birth</label>
+                        <input type="date" asp-for="userdob" class="form-control" 
+                                    id="userdob" name="userdob" />
+                        <span asp-validation-for="userdob" class="text-danger"></span>
+                    </div>
+
+                    <!-- address -->
+                    <div class="form-group">
+                        <label asp-for="useraddress" class="control-label">Date of Birth</label>
+                        <input type="text" asp-for="useraddress" class="form-control" 
+                                    id="useraddress" name="useraddress" />
+                        <span asp-validation-for="useraddress" class="text-danger"></span>
+                    </div>
+
+                    <!-- city -->
+                    <div class="form-group">
+                        <input type="text" asp-for="usercountry" class="form-control" id="usercountryCreate"/>
+                        <label asp-for="usercountry" class="control-label">Country</label>
+                        <select id="countriesCreate" class="form-control" onchange="getUsercountryCreate()"></select>
+                        <span class="text-danger"></span>
+                    </div>
+
+                    <!-- company logo -->
+                    <div class="form-group">
+                        <label asp-for="companylogo" class="control-label">Company logo</label>
+                        <input type="file" asp-for="companylogo" class="form-control" 
+                                    id="filecompanylogo" name="filecompanylogo" />
+                        <span asp-validation-for="companylogo" class="text-danger"></span>
+                    </div>
+                    
+                    <!-- company name -->
+                    <div class="form-group">
+                        <label asp-for="companyname" class="control-label">Company Name</label>
+                        <input asp-for="companyname" class="form-control" 
+                                id="companyname" name="companyname" />
+                        <span asp-validation-for="companyname" class="text-danger"></span>
+                    </div>
+
+                    <!-- company description -->
+                    <div class="form-group">
+                        <label asp-for="companydescription" class="control-label">Company Description</label>
+                        <input asp-for="companydescription" class="form-control" 
+                                id="companydescription" name="companydescription" multiple/>
+                        <span asp-validation-for="companydescription" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ul class="nav nav-tabs" role="tablist" id="shareStructTabsCreate">
+                                
+                                <!-- ordinary shares -->
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="ordinary-tabCreate" data-toggle="tab" href="#ordinarytabCreate" role="tab" aria-controls="user" aria-selected="true">Ordinary Shares</a>
+                                </li>
+                                
+                                <!-- preferencial shares -->
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="preferencial-tabCreate" data-toggle="tab" href="#preferencialtabCreate" role="tab" aria-controls="user" aria-selected="true">Preferencial Shares</a>
+                                </li>
+
+                                <!-- non-voting shares -->
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="nonvoting-tabCreate" data-toggle="tab" href="#nonvotingtabCreate" role="tab" aria-controls="user" aria-selected="true">Non-voting Shares</a>
+                                </li>
+
+                                <!-- redeemable shares -->
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="redeemable-tabCreate" data-toggle="tab" href="#redeemabletabCreate" role="tab" aria-controls="user" aria-selected="true">Redeemable Shares</a>
+                                </li>
+                            </ul>
+                    
+                            <!-- share structure -->
+                            <div class="tab-content clearfix">
+                                <!-- ordinary shares -->
+                                <div class="tab-pane fade" id="ordinarytabCreate" role="tabpanel" aria-labelledby="ordinary-tabCreate">
+                                    <div class="form-group">
+                                        <label asp-for="nbshareordinary" class="control-label">Number or Shares</label>
+                                        <input type="number" asp-for="nbshareordinary" class="form-control"/>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label asp-for="sharevalueordinary" class="control-label">Share value</label>
+                                        <div class="sharevalue">
+                                            <span>$</span><input type="number" asp-for="sharevalueordinary" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label asp-for="descordinary" class="control-label">Description</label>
+                                        <textarea  asp-for="descordinary" class="form-control" rows="3"></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label asp-for="additionalordinary" class="control-label">Additional returns</label>
+                                        <input type="text" data-role="tagsinput" asp-for="additionalordinary" class="form-control"/> 
+                                    </div>
+                                    
+                                </div>
+
+                                <!-- preferencial shares -->
+                                <div class="tab-pane fade" id="preferencialtabCreate" role="tabpanel" aria-labelledby="preferencial-tabCreate">
+                                    <div class="form-group">
+                                        <label asp-for="nbsharepreferencial" class="control-label">Number or Shares</label>
+                                        <input type="number" asp-for="nbsharepreferencial" class="form-control"/>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label asp-for="sharevaluepreferencial" class="control-label">Share value</label>
+                                        <div class="sharevalue">
+                                            <span>$</span><input type="number" asp-for="sharevaluepreferencial" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label asp-for="descpreferencial" class="control-label">Description</label>
+                                        <textarea asp-for="descpreferencial" class="form-control" rows="3"></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label asp-for="additionalpreferencial" class="control-label">Additional returns</label>
+                                        <input type="text" data-role="tagsinput" asp-for="additionalpreferencial" class="form-control"/> 
+                                    </div>
+                                </div>
+
+                                <!-- non-voting shares -->
+                                <div class="tab-pane fade" id="nonvotingtabCreate" role="tabpanel" aria-labelledby="nonvoting-tabCreate">
+                                    <div class="form-group">
+                                        <label asp-for="nbsharenonvoting" class="control-label">Number or Shares</label>
+                                        <input type="number" asp-for="nbsharenonvoting" class="form-control" />
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label asp-for="sharevaluenonvoting" class="control-label">Share value</label>
+                                        <div class="sharevalue">
+                                            <span>$</span><input type="number" asp-for="sharevaluenonvoting" class="form-control" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label asp-for="descnonvoting" class="control-label">Description</label>
+                                        <textarea  asp-for="descnonvoting" class="form-control" rows="3"></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label asp-for="additionalnonvoting" class="control-label">Additional returns</label>
+                                        <input type="text" data-role="tagsinput" asp-for="additionalnonvoting" class="form-control"/> 
+                                    </div>
+                                </div>
+                            
+                                <!-- redeemable shares -->
+                                <div class="tab-pane fade" id="redeemabletabCreate" role="tabpanel" aria-labelledby="redeemable-tabCreate">
+                                    <div class="form-group">
+                                        <label asp-for="nbshareredeemable" class="control-label">Number or Shares</label>
+                                        <input type="number" asp-for="nbshareredeemable" class="form-control" />
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label asp-for="sharevalueredeemable" class="control-label">Share value</label>
+                                        <div class="sharevalue">
+                                            <span>$</span><input type="number" asp-for="sharevalueredeemable" class="form-control" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label asp-for="descredeemable" class="control-label">Description</label>
+                                        <textarea asp-for="descredeemable" class="form-control" rows="3"></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label asp-for="additionalredeemable" class="control-label">Additional returns</label>
+                                        <input type="text" data-role="tagsinput" asp-for="additionalredeemable" class="form-control"/> 
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- submit button -->
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-default" id="btnRegistration" disabled  />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

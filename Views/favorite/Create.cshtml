@@ -1,0 +1,22 @@
+﻿@model cFunding.Models.favorite
+
+@{
+    ViewData["Title"] = "Favorite | Create";
+}
+
+<!-- favorite -->
+<section class="section-favorite" id="section-favorite">
+    <div class="container">
+        <h2 class="tcenter">Favorite</h2>
+        <form  asp-action="Create" enctype="multipart/form-data" id="favorite-form">
+            
+            <input type="hidden"class="form-control" id="fkuser" name="fkuser"/>
+            <input type="hidden"class="form-control" id="fkproject" name="fkproject"/>
+            
+            <div>
+                <input type="submit" class="btn" value="Send Favorite"/>
+            </div>
+
+        </form>
+    </div>
+</section>

@@ -1,0 +1,99 @@
+@model IEnumerable<cFunding.Models.user>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h2 class="pageTitle">All users</h2>
+
+<p>
+    <a asp-action="Create">Create New User</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @* @Html.DisplayNameFor(model => model.username) *@
+                Username
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.useremail) *@ 
+                Email
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.userpassword) *@ 
+                Password
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.userphoto) *@ 
+                Photo
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.companyname) *@ 
+                Company Name
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.companylogo) *@ 
+                Company Logo
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.userassets) *@ 
+                Assets
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.isadmin) *@ 
+                Is Admin
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.useremail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userpassword)
+            </td>
+            <td>
+                @{
+                    var srcimg = @Html.DisplayFor(modelItem => item.userphoto);
+                    var writer = new System.IO.StringWriter();
+                    srcimg.WriteTo(writer, System.Text.Encodings.Web.HtmlEncoder.Default);
+                    var myString = writer.ToString();
+                }
+                <img src="@myString" alt="usr img" class="img-responsive" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.companyname)
+            </td>
+            <td>
+                @{
+                    var srcimg1 = @Html.DisplayFor(modelItem => item.companylogo);
+                    var writer1 = new System.IO.StringWriter();
+                    srcimg1.WriteTo(writer1, System.Text.Encodings.Web.HtmlEncoder.Default);
+                    var myString1 = writer1.ToString();
+                }
+                <img src="@myString1" alt="company logo" class="img-responsive" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userassets)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isadmin)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>

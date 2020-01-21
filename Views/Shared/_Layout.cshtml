@@ -1,0 +1,312 @@
+﻿@using cfunding.Services;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Equity Funder | @ViewData["Title"] </title>
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/theme/css/site.css" />
+        <link rel="stylesheet" href="~/lib/jquery-ui/jquery-ui.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rajdhani:400,500,700" >
+        <link rel="stylesheet" href="~/lib/tagsinput/bootstrap-tagsinput.css" />
+        <link rel="stylesheet" href="~/lib/jquerycountdown/jquery.countdown.css">
+        <link rel="stylesheet" href="~/lib/fancy-tabs/fancy-tabs.css" />
+        
+        <link rel="stylesheet" href="~/theme/css/styles.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/slick-1.8.1/slick/slick.css" />
+
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/theme/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/jquery-ui/jquery-ui.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rajdhani:400,500,700" >
+        <link rel="stylesheet" href="~/lib/tagsinput/bootstrap-tagsinput.css" />
+        <link rel="stylesheet" href="~/lib/jquerycountdown/jquery.countdown.css">
+        <link rel="stylesheet" href="~/lib/fancy-tabs/fancy-tabs.css" />
+        
+        <link rel="stylesheet" href="~/theme/css/styles.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/slick-1.8.1/slick/slick.css" />
+    </environment>
+    @{
+        socialShare mysocialshare = new socialShare();
+        <meta property="og:title" content="@mysocialshare.getogtitle()" />
+        <meta property="og:description" content="@mysocialshare.getogdescription()" />
+        <meta property="og:url" content="@mysocialshare.getogurl()" />
+        <meta property="og:image" content="@mysocialshare.getogimage()" />
+    }
+    
+</head>
+<body>
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/jquery-ui/jquery-ui.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+        <script src="~/lib/tagsinput/bootstrap-tagsinput.js"></script>
+        
+        <script src="~/js/validationHandler.js"></script>
+        <script src="~/js/shareHandler.js"></script>
+        <script src="~/js/urlHandler.js"></script>
+        <script src="~/js/filterHandler.js"></script>
+        <script src="~/lib/jquerycountdown/jquery.countdown.min.js?v=1.0.0.0"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/answerHandler.js"></script>
+        <script src="~/js/tinyMCEHandler.js"></script>
+        <script src="~/lib/slick-1.8.1/slick/slick.js"></script>
+        
+    </environment>
+    <environment exclude="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/jquery-ui/jquery-ui.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+        <script src="~/lib/tagsinput/bootstrap-tagsinput.js"></script>
+        
+        <script src="~/js/validationHandler.js"></script>
+        <script src="~/js/shareHandler.js"></script>
+        <script src="~/js/urlHandler.js"></script>
+        <script src="~/js/filterHandler.js"></script>
+        <script src="~/lib/jquerycountdown/jquery.countdown.min.js?v=1.0.0.0"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/answerHandler.js"></script>
+        <script src="~/js/tinyMCEHandler.js"></script>
+        <script src="~/lib/slick-1.8.1/slick/slick.js"></script>
+        
+    </environment>
+    @RenderSection("Scripts", required: false)
+
+    <!-- ---------------------------- Email Verification -------------------------------->
+    
+    <script>
+        $(function(){
+            $('#loginErrorContainer').hide();
+        });
+    
+        function verifyEmail(){
+            var listEmail = @(Html.Raw(ViewBag.listEmail));
+            var current_email = $('#useremailRegister').val(); 
+            var count=0; 
+            $.each(listEmail, function(key, value) {
+                if(current_email == value){
+                    count++;       
+                }
+            });
+
+            if(count>0){
+                $('#availableEmail').text("Email not available"); 
+            }
+            else {
+                $('#availableEmail').text(""); 
+            }
+        }
+
+    </script>
+    
+
+    @if(ViewBag.loginFailed == "true")
+    {
+        <script>
+            $(function(){
+                $('#loginError').text("Please enter valid email / password or Register");
+                $('#loginErrorContainer').show();
+                showLoginModal();
+            });
+        </script>
+    }
+
+    <!-- ----------------------------------  NAVBAR   -------------------------------->
+    <script>
+        $(function() {
+            var header = $(".navbar");
+        
+            $(window).scroll(function() {    
+                var scroll = $(window).scrollTop();
+                if (scroll >= 50) {
+                    header.addClass("scrolled");
+                } else {
+                    header.removeClass("scrolled");
+                }
+            });
+        
+        });
+    </script>
+    
+    <nav class="navbar navbar-expand navbar-fixed-top" data-sticky-on="small">
+        <div class="container nav-container">
+            <div class="navbar-header">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index"></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav project-dropdown">
+                    <!-- Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Projects
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" asp-area="" asp-controller="project" asp-action="Index">Browse Catalogue</a>
+                            @if(ViewBag.validatedUser == "True" && ViewBag.loginFailed=="false" )
+                            {
+                                <a class="dropdown-item" asp-area="" asp-controller="project" asp-action="Create">Create Project</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="favorite" asp-action="Index">My Favorites</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="project" asp-action="MyProjects" asp-route-id="@ViewBag.userid">My Projects</a>
+                            }
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/#ask-questions">Ask Questions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/#contact-us">Contact Us</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <div class="navbar-buttons">
+                @if (ViewBag.useremail == "null" || ViewBag.useremail == null || ViewBag.useremail == "" || ViewBag.loginFailed=="true" || ViewBag.loginFailed=="")
+                {
+                    <a href="#" data-toggle="modal" data-target="#loginModal" class="bigBtn" >Login</a>
+                    <a href="#" data-toggle="modal" data-target="#registerModal" class="bigBtn">Register</a>
+                    <a href="#" data-toggle="modal" data-target="#loginModal" class="smallBtn" >L</a>
+                    <a href="#" data-toggle="modal" data-target="#registerModal" class="smallBtn">R</a>
+                }else
+                {
+                    <div class="dropdown user user-menu">
+                        <a href="#"  class="navbar-brand dropdown-toggle" data-toggle="dropdown">
+                            <div style="display: inline-block">
+                                <span>
+                                    @ViewBag.username&nbsp;
+                                </span>
+                                <img src="~/@ViewBag.userphoto" width="30"/>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-img-wrapper">
+                                <img src="~/@ViewBag.userphoto"/>
+                            </div>
+                            <p>@ViewBag.username</p>
+                            <a href="~/user/Details/@ViewBag.userid ">View profile</a>
+                            <a asp-area="" asp-controller="Home" asp-action="logout">Logout</a>
+                        </div>
+                    </div>
+                }
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <partial name="_CookieConsentPartial" />
+
+    <div class="body-content">
+        @RenderBody()
+    </div>
+    
+    
+    
+    
+    <!------------------------------------ login Modal -------------------------------->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <div class="row modal-header-title">
+                    <h3 class="modal-title" id="loginModalLabel">Login</h3>
+                    <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" onclick="clearLogin()">
+                        <span aria-hidden="true" >&times;</span>
+                    </button>
+                </div>
+            </div>
+            <form asp-controller="Home" asp-action="login" id="loginForm">
+                <div class="modal-body">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" class="form-control"  placeholder="Enter email"
+                            id="loginEmail" name="loginEmail">
+                    <span class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" class="form-control" placeholder="Password" 
+                            id="loginPassword" name="loginPassword">
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Remember Me</label>
+                </div>
+                <div class="form-group" id="loginErrorContainer">
+                    <label id="loginError" class="error" ></label>
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn" id="btnLogin" disabled>Sign in</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+    <!------------------------------------- register Modal ------------------------------->
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <div class="row modal-header-title">
+                    <h3 class="modal-title" id="loginModalLabel">Register</h3>
+                    <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" onclick="clearRegistration()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <form asp-controller="user" asp-action="registerHome" id="registerForm">
+                <div class="modal-body">
+                <!-- email -->
+                    <div class="form-group">
+                        <label for="useremail">Email</label>
+                        <input type="email" class="form-control"  placeholder="Enter email"
+                                id="useremailRegister" name="useremail" onchange="verifyEmail()">
+                        <span class="text-danger emailError"></span>
+                        <span class="error" id="availableEmail"></span>
+                    </div>
+                    <!-- password -->
+                    <div class="form-group">
+                        <label for="userpassword">Password</label>
+                        <input type="password" class="form-control" placeholder="Password" 
+                                id="userpasswordRegister" name="userpassword">
+                        <label id="resultPRegister"></label>
+                    </div>
+                    <!-- confirm password -->
+                    <div class="form-group">
+                        <label for="registerCpassword">Confirm password</label>
+                        <input type="password" class="form-control" placeholder="Confirm Password" 
+                                id="userCpassword" name="registerCpassword">
+                        <span class="text-danger"></span>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn" id="btnRegister" value="Register" disabled/>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

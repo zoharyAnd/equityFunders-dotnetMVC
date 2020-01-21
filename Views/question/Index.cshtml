@@ -1,0 +1,33 @@
+﻿@model IEnumerable<cFunding.Models.question>
+@using cfunding.Services;
+@{
+    ViewData["Title"] = "Question | Home";
+}
+
+
+<section>
+    <table>
+        <thead>
+            <tr>
+                <th>Question id</th>
+                <th>user id</th>
+                <th>question date</th>
+                <th>question message</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.fkuser.id)</td>
+                    <td>closing on @globalMethods.formattedDate(item.questiondate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.questionmessage)</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
