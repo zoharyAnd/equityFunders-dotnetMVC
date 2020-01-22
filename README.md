@@ -1,4 +1,4 @@
-<h3>Equity Crowdfunding application</h3>
+#Equity Funders - Dotnet application
 Built with
 <ul>
   <li>dotnet MVC</li>
