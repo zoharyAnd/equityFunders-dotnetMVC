@@ -50,7 +50,7 @@ contactus (an_userid, a_sendername, a_senderemail, a_mailsubject, a_mailmessage)
 ```
 
 ## Deployment
-To deploy your site, you will need to create a site within an **IIS Serve** 
+To deploy your site, you will need to create a site within an **IIS Server** 
 
 ```
 dotnet publish
